@@ -21,8 +21,9 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
 
     const [existingImages, setExistingImages] = useState<string[]>([]);
     const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
-    const [newImagePreviews, setNewImagePreviews] = useState<string[]>([]);
     const [newImageFiles, setNewImageFiles] = useState<File[]>([]);
+    const [newImagePreviews, setNewImagePreviews] = useState<string[]>([]);
+    const [statusOptions, setStatusOptions] = useState<string[]>(["Completed", "In Progress", "Suspended"]);
 
     const MAX_IMAGES = 5;
 
@@ -47,6 +48,17 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
             getProjectByIdAction(projectId).then((proj) => {
                 const projData = Array.isArray(proj) ? proj[0] : proj;
                 if (projData) {
+                    const rawStatus = projData.status || "Completed";
+                    // Normalize status formatting (e.g. "in_progress" -> "In Progress")
+                    const formattedStatus = rawStatus.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                    
+                    setStatusOptions(prev => {
+                        if (!prev.includes(formattedStatus)) {
+                            return [...prev, formattedStatus];
+                        }
+                        return prev;
+                    });
+
                     reset({
                         id: projData.id,
                         user_id: projData.user_id,
@@ -54,7 +66,7 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
                         client: projData.client,
                         role: projData.role,
                         year: projData.year,
-                        status: projData.status,
+                        status: formattedStatus,
                         sort_order: projData.sort_order,
                         description: projData.description,
                         github_url: projData.github_url || "",
@@ -271,11 +283,23 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold text-muted mb-2 uppercase tracking-wider">Status</label>
-                                    <input
-                                        {...register('status')}
-                                        placeholder="Completed"
-                                        className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                                    />
+                                    <div className="relative">
+                                        <select
+                                            {...register('status')}
+                                            className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all appearance-none cursor-pointer"
+                                        >
+                                            {statusOptions.map(opt => (
+                                                <option key={opt} value={opt} className="bg-surface text-foreground">
+                                                    {opt}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-muted">
+                                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
                                     {errors.status && <p className="text-red-400 text-xs mt-1">{errors.status.message}</p>}
                                 </div>
                             </div>

@@ -92,11 +92,22 @@ export function DashboardProjects() {
                                         <div>
                                             <div className="flex items-center gap-3 mb-4">
                                                 <span className="text-xs font-mono bg-elevated text-foreground border border-border px-2 py-1 rounded shadow-sm font-semibold">#{proj.sort_order}</span>
-                                                <span className={`text-xs px-2 py-1 rounded border font-bold ${proj.status.toLowerCase() === 'completed'
-                                                    ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
-                                                    : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20'
-                                                    }`}>
-                                                    {proj.status.toLowerCase()}
+                                                <span className={`text-xs px-2 py-1 rounded border font-bold ${
+                                                    (() => {
+                                                        const cleanStatus = proj.status.toLowerCase().replace(/_/g, ' ').trim();
+                                                        switch (cleanStatus) {
+                                                            case 'completed':
+                                                                return 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20';
+                                                            case 'in progress':
+                                                                return 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20';
+                                                            case 'suspended':
+                                                                return 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20';
+                                                            default:
+                                                                return 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20';
+                                                        }
+                                                    })()
+                                                }`}>
+                                                    {proj.status.replace(/_/g, ' ').toLowerCase()}
                                                 </span>
                                             </div>
                                             <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{proj.title}</h3>

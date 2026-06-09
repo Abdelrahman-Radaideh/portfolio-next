@@ -45,7 +45,7 @@ export async function sendMessageAction(data: FormData) {
 
 export async function sendAuthCode(code: string) {
   try {
-    transporter.sendMail({
+    await transporter.sendMail({
       from: process.env.EMAIL,
       to: process.env.EMAIL,
       subject: "Auth Code",

@@ -119,7 +119,7 @@ CREATE OR REPLACE FUNCTION public.reorder_projects_for_user(target_user_id integ
         SELECT id,
             ROW_NUMBER() OVER (
                 ORDER BY sort_order ASC,
-                    id ASC
+                    id DESC
             ) AS new_rank
         FROM projects
         WHERE user_id = target_user_id

@@ -39,10 +39,11 @@ export default function Projects({ projects }: { projects: Project[] }) {
     };
 
     const statusColor = (status: string) => {
-        switch (status.toLowerCase()) {
+        const normalized = status.toLowerCase().replace(/_/g, ' ').trim();
+        switch (normalized) {
             case 'completed':
                 return 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
-            case "in_progress" :
+            case 'in progress':
                 return 'bg-amber-500/10 text-amber-400 border border-amber-500/20';
             case 'suspended':
                 return 'bg-red-500/10 text-red-400 border border-red-500/20';
@@ -75,7 +76,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
                         <div className="relative w-full h-full bg-surface rounded-[calc(2rem-2px)] p-2 z-10 overflow-hidden">
                             <div className="rounded-[1.5rem] overflow-hidden relative border border-border">
                                 <div className={`absolute top-6 left-6 z-10 ${statusColor(project.status || 'Completed')} px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.15em] rounded-full backdrop-blur-md shadow-lg`}>
-                                    {project.status || 'Completed'}
+                                    {(project.status || 'Completed').replace(/_/g, ' ')}
                                 </div>
                                 {project.images && <ImageSlider imgeurl={project.images} projectName={project.title} />}
                             </div>
