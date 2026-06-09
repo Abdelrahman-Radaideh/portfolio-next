@@ -50,7 +50,7 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
                 if (projData) {
                     const rawStatus = projData.status || "Completed";
                     // Normalize status formatting (e.g. "in_progress" -> "In Progress")
-                    const formattedStatus = rawStatus.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                    const formattedStatus = rawStatus.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
                     
                     setStatusOptions(prev => {
                         if (!prev.includes(formattedStatus)) {
