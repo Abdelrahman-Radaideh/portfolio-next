@@ -19,8 +19,9 @@ export async function addSkillAction(skill: Skill) {
         throw new Error(validatedSkill.error.message);
     }
     try {
+        const result = await addSkill(validatedSkill.data);
         revalidatePath("/");
-        return await addSkill(validatedSkill.data);
+        return result;
     } catch (error) {
         console.error("Error adding skill:", error);
         throw error;
@@ -49,8 +50,9 @@ export async function updateSkillAction(skill: Skill) {
         throw new Error(validatedSkill.error.message);
     }
     try {
+        const result = await updateSkill(validatedSkill.data);
         revalidatePath("/");
-        return await updateSkill(validatedSkill.data);
+        return result;
     } catch (error) {
         console.error("Error updating skill:", error);
         throw error;
@@ -67,8 +69,9 @@ export async function deleteSkillAction(id: number) {
         return { success: false, message: "Unauthorized", status: 401 };
     }
     try {
+        const result = await deleteSkill(id);
         revalidatePath("/");
-        return await deleteSkill(id);
+        return result;
     } catch (error) {
         console.error("Error deleting skill:", error);
         throw error;

@@ -32,7 +32,7 @@ export async function addUser(user: User) {
     if (error) {
         throw error;
     }
-    revalidateTag("users", "default");
+    revalidateTag("users");
     return data;
 }
 
@@ -42,7 +42,7 @@ export async function updateUser(user: User) {
         if (error) {
             throw error;
         }
-        revalidateTag("users", "default");
+        revalidateTag("users");
         return data;
     }
     else {
@@ -50,7 +50,7 @@ export async function updateUser(user: User) {
         if (error) {
             throw error;
         }
-        revalidateTag("users", "default");
+        revalidateTag("users");
         return data;
     }
 }
@@ -60,9 +60,9 @@ export async function deleteUser(id: number) {
     if (error) {
         throw error;
     }
-    revalidateTag("users", "default");
+    revalidateTag("users");
     return data;
-} ``
+}
 
 export async function getActiveUser() {
     "use cache";
@@ -80,7 +80,7 @@ export async function activateUser(id: number) {
     if (error) {
         throw error;
     }
-    revalidateTag("users", "default");
+    revalidateTag("users");
     return data;
 }
 export async function deactivateUser() {
@@ -88,7 +88,7 @@ export async function deactivateUser() {
     if (error) {
         throw error;
     }
-    revalidateTag("users", "default");
+    revalidateTag("users");
     return data;
 }
 export async function updateUserPicture(id: number, picture_url: string) {
@@ -96,7 +96,7 @@ export async function updateUserPicture(id: number, picture_url: string) {
     if (error) {
         throw error;
     }
-    revalidateTag("users", "default");
+    revalidateTag("users");
     return data;
 }
 

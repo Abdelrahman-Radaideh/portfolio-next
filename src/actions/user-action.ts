@@ -58,7 +58,6 @@ export async function addUserAction(user: RequestUser) {
         console.error("Error adding user:", parsed.error);
         throw parsed.error;
     }
-    revalidatePath("/");
     try {
         if (user.picture) {
             const url = await uploadImage(user.picture);
@@ -79,7 +78,9 @@ export async function addUserAction(user: RequestUser) {
                 picture_url: url,
                 portfolio_name: user.portfolio_name,
             }
-            return await addUser(newUser);
+            const result = await addUser(newUser);
+            revalidatePath("/");
+            return result;
         }
         else {
             throw new Error("Picture is required");
@@ -133,10 +134,10 @@ export async function updateUserAction(user: RequestUser) {
                 picture_url: url,
                 portfolio_name: user.portfolio_name,
             }
+            const result = await updateUser(newUser);
             revalidatePath("/");
-            return await updateUser(newUser);
+            return result;
         }
-        revalidatePath("/");
         const newUserWithoutPic: User = {
             id: user.id,
             name: user.name,
@@ -151,7 +152,9 @@ export async function updateUserAction(user: RequestUser) {
             resume_url: user.resume_url,
             portfolio_name: user.portfolio_name,
         };
-        return await updateUser(newUserWithoutPic);
+        const result = await updateUser(newUserWithoutPic);
+        revalidatePath("/");
+        return result;
     } catch (error) {
         console.error("Error updating user to DB:", error);
         throw error;
@@ -167,9 +170,10 @@ export async function deleteUserAction(id: number) {
     if (!auth) {
         return { success: false, message: "Unauthorized", status: 401 };
     }
-    revalidatePath("/");
     try {
-        return await deleteUser(id);
+        const result = await deleteUser(id);
+        revalidatePath("/");
+        return result;
     } catch (error) {
         console.error("Error deleting user:", error);
         throw error;
@@ -194,10 +198,11 @@ export async function activateUserAction(id: number) {
     if (!auth) {
         return { success: false, message: "Unauthorized", status: 401 };
     }
-    revalidatePath("/");
     try {
         await deactivateUserAction();
-        return await activateUser(id);
+        const result = await activateUser(id);
+        revalidatePath("/");
+        return result;
     } catch (error) {
         console.error("Error activating user:", error);
         throw error;
@@ -213,9 +218,10 @@ export async function deactivateUserAction() {
     if (!auth) {
         return { success: false, message: "Unauthorized", status: 401 };
     }
-    revalidatePath("/");
     try {
-        return await deactivateUser();
+        const result = await deactivateUser();
+        revalidatePath("/");
+        return result;
     } catch (error) {
         console.error("Error deactivating user:", error);
         throw error;

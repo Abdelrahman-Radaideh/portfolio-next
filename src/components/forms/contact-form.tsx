@@ -5,6 +5,7 @@ import { toast, Toaster } from "sonner";
 import { sendMessageAction } from "@/actions/contact-action";
 import { sendAuthCodeAction, verifyAndConsumeCodeAction } from "@/actions/auth-action";
 import { useRouter } from "next/navigation";
+import posthog from "posthog-js";
 export const ContactForm = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
     const secrectKey = process.env.NEXT_PUBLIC_SECRET_KEY;
     const [loading, setLoading] = useState(false);
@@ -24,6 +25,7 @@ export const ContactForm = ({ isAuthenticated }: { isAuthenticated: boolean }) =
             form.reset();
         } else {
             toast.error(data.message);
+            posthog.captureException(new Error(`Contact form failed: ${data.message}`));
         }
         setLoading(false);
 

@@ -3,7 +3,6 @@ import transporter from "@/config/email";
 import { emailBodyToOwner, emailBodyTouser, securityCodeEmailTemplate } from "@/templates/email-template";
 
 
-
 export async function sendMessageAction(data: FormData) {
   if (!data) {
     return { success: false, message: "Invalid form data" };

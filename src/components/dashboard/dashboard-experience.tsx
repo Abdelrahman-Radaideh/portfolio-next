@@ -11,13 +11,12 @@ import { ConfirmModal } from "@/components/ui/confirm-modal";
 export function DashboardExperience() {
     const [experiences, setExperiences] = useState<Experience[]>([]);
     const [expToDelete, setExpToDelete] = useState<number | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchExperiences = () => {
 
         getActiveExperiencesAction().then((data) => {
             setExperiences(data);
-            setIsLoading(true);
         }).catch((error) => {
             console.error(error);
             toast.error("Failed to fetch experiences");

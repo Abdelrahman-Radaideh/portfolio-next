@@ -37,7 +37,7 @@ export async function addSkill(skill: Skill) {
     if (error) {
         throw error;
     }
-    revalidateTag("skills", "default");
+    revalidateTag("skills");
     return data;
 }
 export async function updateSkill(skill: Skill) {
@@ -45,7 +45,7 @@ export async function updateSkill(skill: Skill) {
     if (error) {
         throw error;
     }
-    revalidateTag("skills", "default");
+    revalidateTag("skills");
     return data;
 }
 export async function deleteSkill(id: number) {
@@ -53,7 +53,7 @@ export async function deleteSkill(id: number) {
     if (error) {
         throw error;
     }
-    revalidateTag("skills", "default");
+    revalidateTag("skills");
     return data;
 }
 export async function getSkillsCount() {

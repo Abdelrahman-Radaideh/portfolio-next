@@ -7,6 +7,7 @@ import Marquee from "react-fast-marquee";
 import { getIconForTechnology } from '@/lib/utils/client/icon-mapper';
 import { motion, Variants } from 'framer-motion';
 import { FaLinkedin } from 'react-icons/fa';
+import posthog from 'posthog-js';
 
 export default function HeroSection({ user, skills }: { user: User, skills: Skill[] }) {
     const fadeIn: Variants = {
@@ -104,7 +105,7 @@ export default function HeroSection({ user, skills }: { user: User, skills: Skil
                     </motion.p>
 
                     <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-                        <Link href={user.resume_url} className="w-full sm:w-auto px-8 py-4 bg-primary hover:bg-primary-hover text-inverse font-bold rounded-full transition-all duration-normal ease-smooth transform hover:-translate-y-1 hover:shadow-[0_8px_30px_var(--primary-glow)] text-center flex items-center justify-center gap-2">
+                        <Link href={user.resume_url} onClick={() => posthog.capture("resume_downloaded", { resume_url: user.resume_url })} className="w-full sm:w-auto px-8 py-4 bg-primary hover:bg-primary-hover text-inverse font-bold rounded-full transition-all duration-normal ease-smooth transform hover:-translate-y-1 hover:shadow-[0_8px_30px_var(--primary-glow)] text-center flex items-center justify-center gap-2">
                             Download CV
                         </Link>
                         <Link href={'/#contact'} className="w-full sm:w-auto px-8 py-4 bg-transparent border border-border hover:border-primary text-foreground hover:text-primary font-bold rounded-full transition-all duration-normal ease-smooth transform hover:-translate-y-1 text-center">
@@ -174,7 +175,7 @@ export default function HeroSection({ user, skills }: { user: User, skills: Skil
 
                     {/* Small Decorative Floating Icon */}
                     {user.linkedin_url && (
-                        <Link href={user.linkedin_url} target="_blank" className="absolute top-1/2 -left-5 w-10 h-10 bg-surface/80 backdrop-blur-md border border-border rounded-xl flex items-center justify-center shadow-lg transform -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-[#0a66c2] text-muted transition-all duration-500 ease-smooth z-20 hover:scale-110">
+                        <Link href={user.linkedin_url} target="_blank" onClick={() => posthog.capture("linkedin_profile_viewed")} className="absolute top-1/2 -left-5 w-10 h-10 bg-surface/80 backdrop-blur-md border border-border rounded-xl flex items-center justify-center shadow-lg transform -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-[#0a66c2] text-muted transition-all duration-500 ease-smooth z-20 hover:scale-110">
                             <FaLinkedin className="w-5 h-5" />
                         </Link>
                     )}

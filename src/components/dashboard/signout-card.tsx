@@ -1,9 +1,11 @@
 "use client";
 import { FaSignOutAlt } from "react-icons/fa";
 import { signOutAction } from "@/actions/auth-action";
+import posthog from "posthog-js";
 
 const SignOutCard = () => {
     const handleSignOut = async () => {
+        posthog.reset();
         await signOutAction();
     };
     return (

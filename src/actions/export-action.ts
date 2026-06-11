@@ -24,6 +24,7 @@ export async function getExportDataAction() {
             getActiveExperiencesAction(),
         ]);
 
+
         return {
             user: activeUser,
             projects: activeProjects,

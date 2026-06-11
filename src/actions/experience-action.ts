@@ -41,7 +41,8 @@ export const addExperienceAction = async (experience: Experience) => {
         if (!auth) {
             return { success: false, message: "Unauthorized", status: 401 };
         }
-        return await addExperience(experience);
+        const result = await addExperience(experience);
+        return result;
     } catch (error) {
         console.error("Error adding experience:", error);
         throw error;
@@ -58,8 +59,9 @@ export const updateExperienceAction = async (experience: Experience) => {
         if (!auth) {
             return { success: false, message: "Unauthorized", status: 401 };
         }
+        const result = await updateExperience(experience);
         revalidatePath("/");
-        return await updateExperience(experience);
+        return result;
     } catch (error) {
         console.error("Error updating experience:", error);
         throw error;
@@ -76,8 +78,9 @@ export const deleteExperienceAction = async (id: number) => {
         return { success: false, message: "Unauthorized", status: 401 };
     }
     try {
+        const result = await deleteExperience(id);
         revalidatePath("/");
-        return await deleteExperience(id);
+        return result;
     } catch (error) {
         console.error("Error deleting experience:", error);
         throw error;

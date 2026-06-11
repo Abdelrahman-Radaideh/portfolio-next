@@ -65,11 +65,11 @@ export async function addProjectAction(project: Project) {
         throw new Error(validatedProject.error.message);
     }
     try {
-        revalidatePath("/");
         const res = await addProject(validatedProject.data);
         if (validatedProject.data.user_id) {
             await reorderProjects(validatedProject.data.user_id);
         }
+        revalidatePath("/");
         return res;
     } catch (error) {
         console.error("Error adding project:", error);
@@ -91,11 +91,11 @@ export async function updateProjectAction(project: Project) {
         throw new Error(validatedProject.error.message);
     }
     try {
-        revalidatePath("/");
         const res = await updateProject(validatedProject.data);
         if (validatedProject.data.user_id) {
             await reorderProjects(validatedProject.data.user_id);
         }
+        revalidatePath("/");
         return res;
     } catch (error) {
         console.error("Error updating project:", error);
@@ -139,8 +139,9 @@ export async function updateProjectImagesAction(id: number, images: string[]) {
         return { success: false, message: "Unauthorized", status: 401 };
     }
     try {
+        const res = await updateProjectImages(id, images);
         revalidatePath("/");
-        return await updateProjectImages(id, images);
+        return res;
     } catch (error) {
         console.error("Error updating project images:", error);
         throw error;
@@ -165,11 +166,11 @@ export async function addProjectWithFilesAction(projectData: RequestProject) {
 
     try {
         const uploadedImages: string[] = [];
-        if (parsed.data.new_images) {
-            for (const file of parsed.data.new_images) {
-                const url = await uploadImage(file);
-                if (url) uploadedImages.push(url);
-            }
+        if (parsed.data.new_images && parsed.data.new_images.length > 0) {
+            const urls = await Promise.all(
+                parsed.data.new_images.map((file) => uploadImage(file))
+            );
+            uploadedImages.push(...(urls.filter(Boolean) as string[]));
         }
 
         const newProject: Project = {
@@ -209,11 +210,11 @@ export async function updateProjectWithFilesAction(projectData: RequestProject, 
         }
 
         const uploadedImages: string[] = [];
-        if (parsed.data.new_images) {
-            for (const file of parsed.data.new_images) {
-                const url = await uploadImage(file);
-                if (url) uploadedImages.push(url);
-            }
+        if (parsed.data.new_images && parsed.data.new_images.length > 0) {
+            const urls = await Promise.all(
+                parsed.data.new_images.map((file) => uploadImage(file))
+            );
+            uploadedImages.push(...(urls.filter(Boolean) as string[]));
         }
 
         const remainingImages = (parsed.data.images || []).filter(img => !imagesToDelete.includes(img));
@@ -250,10 +251,10 @@ export async function updateProjectImagesOnlyAction(id: number, existingImages: 
 
         const uploadedImages: string[] = [];
         if (newImages && newImages.length > 0) {
-            for (const file of newImages) {
-                const url = await uploadImage(file);
-                if (url) uploadedImages.push(url);
-            }
+            const urls = await Promise.all(
+                newImages.map((file) => uploadImage(file))
+            );
+            uploadedImages.push(...(urls.filter(Boolean) as string[]));
         }
 
         const remainingImages = existingImages.filter(img => !imagesToDelete.includes(img));
