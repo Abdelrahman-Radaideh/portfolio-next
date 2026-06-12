@@ -32,16 +32,13 @@ async function AuthHeader() {
   return <Header isAuthenticated={isAuthenticated} />;
 }
 
-async function AuthFooter() {
-  const isAuthenticated = await athCheck();
-  return <Footer isAuthenticated={isAuthenticated} />;
-}
-
-export default function MainLayout({
+export default async function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isAuthenticated = await athCheck();
+
   return (
     <>
       <Suspense fallback={<Header isAuthenticated={false} />}>
@@ -50,9 +47,7 @@ export default function MainLayout({
       <main className="flex-grow">
         {children}
       </main>
-      <Suspense fallback={<Footer isAuthenticated={false} />}>
-        <AuthFooter />
-      </Suspense>
+      <Footer isAuthenticated={isAuthenticated} />
       <div className="text-center py-4">
         <hr className="border-gray-500 w-1/2 mx-auto" />
         <p className="text-sm text-gray-500 mt-5">© Zaid Radaideh. All rights reserved.</p>
