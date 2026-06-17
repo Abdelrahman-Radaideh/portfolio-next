@@ -266,3 +266,35 @@ export async function updateProjectImagesOnlyAction(id: number, existingImages: 
         throw e;
     }
 }
+
+export async function checkLiveUrlAction(url: string): Promise<boolean> {
+    if (!url) return false;
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+        
+        const response = await fetch(url, { 
+            method: 'HEAD',
+            signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+        
+        if (response.ok) return true;
+        
+        // If HEAD fails (e.g. 405 Method Not Allowed), try GET
+        if (response.status === 405 || response.status === 403) {
+             const getController = new AbortController();
+             const getTimeoutId = setTimeout(() => getController.abort(), 5000);
+             const getResponse = await fetch(url, {
+                 method: 'GET',
+                 signal: getController.signal
+             });
+             clearTimeout(getTimeoutId);
+             return getResponse.ok;
+        }
+        
+        return false;
+    } catch (e) {
+        return false;
+    }
+}

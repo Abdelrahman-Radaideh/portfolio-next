@@ -6,8 +6,35 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { checkLiveUrlAction } from "@/actions/project-action";
+
+function LiveUrlButton({ url }: { url: string | null | undefined }) {
+    const [isLive, setIsLive] = useState(false);
+    
+    useEffect(() => {
+        if (!url) return;
+        checkLiveUrlAction(url).then(alive => {
+            if (alive) setIsLive(true);
+        });
+    }, [url]);
+
+    if (!url || !isLive) return null;
+
+    return (
+        <a
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-2 bg-transparent border border-primary text-primary hover:bg-primary/10 font-bold px-6 py-2.5 rounded-full text-sm transition-all duration-normal ease-smooth transform hover:-translate-y-1 w-max"
+        >
+            <FaExternalLinkAlt className="w-4 h-4" />
+            Live Demo
+        </a>
+    );
+}
 
 export default function Projects({ projects }: { projects: Project[] }) {
     projects.sort((a, b) => a.sort_order - b.sort_order);
@@ -122,16 +149,19 @@ export default function Projects({ projects }: { projects: Project[] }) {
                         </div>
 
                         {/* Actions */}
-                        <div>
-                            <a
-                                href={project.github_url}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-inverse font-bold px-6 py-2.5 rounded-full text-sm transition-all duration-normal ease-smooth transform hover:-translate-y-1 hover:shadow-[0_8px_30px_var(--primary-glow)] w-max"
-                            >
-                                <FaGithub className="w-4 h-4" />
-                                View Code
-                            </a>
+                        <div className="flex gap-4 flex-wrap mt-2">
+                            {project.github_url && (
+                                <a
+                                    href={project.github_url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-inverse font-bold px-6 py-2.5 rounded-full text-sm transition-all duration-normal ease-smooth transform hover:-translate-y-1 hover:shadow-[0_8px_30px_var(--primary-glow)] w-max"
+                                >
+                                    <FaGithub className="w-4 h-4" />
+                                    View Code
+                                </a>
+                            )}
+                            <LiveUrlButton url={project.live_url} />
                         </div>
                     </motion.div>
                 </div>

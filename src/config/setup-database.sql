@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS public.projects (
     technologies varchar,
     status varchar,
     images text [],
+    live_url text,
     CONSTRAINT projects_pkey PRIMARY KEY (id),
     CONSTRAINT projects_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users (id)
 );

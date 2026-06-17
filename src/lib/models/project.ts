@@ -10,7 +10,8 @@ export const ProjectSchema = z.object({
     status: z.string().min(2, "Status must be at least 2 characters long"),
     sort_order: z.number().min(1, "Sort order must be at least 1").max(100, "Sort order must be at most 100"),
     description: z.string().min(10, "Description must be at least 10 characters long"),
-    github_url: z.union([z.literal(""), z.string().url("Invalid URL")]).optional(),
+    github_url: z.union([z.literal(""), z.string().url("Invalid URL")]).optional().nullable(),
+    live_url: z.union([z.literal(""), z.string().url("Invalid URL")]).optional().nullable(),
     technologies: z.string().min(2, "Please provide at least one technology"),
     images: z.array(z.string().url()).max(5, "Maximum 5 images allowed").optional().nullable()
 });

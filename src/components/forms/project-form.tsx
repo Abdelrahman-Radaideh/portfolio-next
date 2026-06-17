@@ -70,6 +70,7 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
                         sort_order: projData.sort_order,
                         description: projData.description,
                         github_url: projData.github_url || "",
+                        live_url: projData.live_url || "",
                         technologies: projData.technologies,
                         images: projData.images || [],
                     });
@@ -155,6 +156,7 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
                         sort_order: data.sort_order,
                         description: data.description,
                         github_url: data.github_url,
+                        live_url: data.live_url,
                         technologies: data.technologies
                     };
                     projectToUpdate.technologies = data.technologies
@@ -241,6 +243,18 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
                                         className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                                     />
                                     {errors.github_url && <p className="text-red-400 text-xs mt-1">{errors.github_url.message}</p>}
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-xs font-bold text-muted mb-2 uppercase tracking-wider">Live URL</label>
+                                    <input
+                                        {...register('live_url')}
+                                        placeholder="https://my-live-project.com"
+                                        className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                                    />
+                                    {errors.live_url && <p className="text-red-400 text-xs mt-1">{errors.live_url.message}</p>}
                                 </div>
                             </div>
 
