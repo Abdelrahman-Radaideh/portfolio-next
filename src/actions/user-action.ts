@@ -5,7 +5,7 @@ import {
     deactivateUser, getPortfolioNames, getActivePortfolioName
 } from "@/lib/services/user-service";
 import { uploadImage, deleteImage } from "@/lib/utils/server/could-upload";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { checkAuth } from "@/lib/auth";
 import { cookies } from "next/headers";
 export async function getUsersAction() {
@@ -201,10 +201,10 @@ export async function activateUserAction(id: number) {
     try {
         await deactivateUserAction();
         const result = await activateUser(id);
-        revalidateTag("users");
-        revalidateTag("skills");
-        revalidateTag("projects");
-        revalidateTag("experiences");
+        updateTag("users");
+        updateTag("skills");
+        updateTag("projects");
+        updateTag("experiences");
         revalidatePath("/", "layout");
         return result;
     } catch (error) {
@@ -224,10 +224,10 @@ export async function deactivateUserAction() {
     }
     try {
         const result = await deactivateUser();
-        revalidateTag("users");
-        revalidateTag("skills");
-        revalidateTag("projects");
-        revalidateTag("experiences");
+        updateTag("users");
+        updateTag("skills");
+        updateTag("projects");
+        updateTag("experiences");
         revalidatePath("/", "layout");
         return result;
     } catch (error) {
