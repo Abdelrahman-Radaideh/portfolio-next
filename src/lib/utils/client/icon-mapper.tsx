@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-    SiPython, SiJavascript, SiCplusplus, SiTypescript, SiPhp, SiRuby, SiGo, SiSwift, SiKotlin, SiRust, SiDart, SiScala, SiR, SiMysql, SiHtml5, SiReact, SiAngular, SiVuedotjs, SiNextdotjs, SiSvelte, SiJquery, SiBootstrap, SiTailwindcss, SiNodedotjs, SiDjango, SiFlask, SiSpringboot, SiDotnet, SiLaravel, SiExpress, SiRubyonrails, SiFastapi, SiGraphql, SiPostgresql, SiMongodb, SiRedis, SiSqlite, SiApachecassandra, SiElasticsearch, SiFirebase, SiMariadb, SiGooglecloud, SiDocker, SiKubernetes, SiJenkins, SiTerraform, SiAnsible, SiGitlab, SiCircleci, SiNginx, SiApache, SiLinux, SiUbuntu, SiGnubash, SiGit, SiGithub, SiTensorflow, SiPytorch, SiScikitlearn, SiPandas, SiNumpy, SiApachespark, SiApachehadoop, SiFlutter, SiIonic, SiAndroid, SiIos, SiUnity, SiUnrealengine, SiFigma, SiPostman, SiJira, SiSelenium, SiCypress, SiWireshark, SiMetasploit, SiOwasp, SiSplunk, SiDatadog, SiPrometheus, SiGrafana, SiBlockchaindotcom, SiEthereum, SiSolidity, SiWebassembly, SiOpenai, SiAppium, SiSwagger
+    SiPython, SiJavascript, SiCplusplus, SiTypescript, SiPhp, SiRuby, SiGo, SiSwift, SiKotlin, SiRust, SiDart, SiScala, SiR, SiMysql, SiHtml5, SiReact, SiAngular, SiVuedotjs, SiNextdotjs, SiSvelte, SiJquery, SiBootstrap, SiTailwindcss, SiNodedotjs, SiDjango, SiFlask, SiSpringboot, SiDotnet, SiLaravel, SiExpress, SiRubyonrails, SiFastapi, SiGraphql, SiPostgresql, SiMongodb, SiRedis, SiSqlite, SiApachecassandra, SiElasticsearch, SiFirebase, SiMariadb, SiGooglecloud, SiDocker, SiKubernetes, SiJenkins, SiTerraform, SiAnsible, SiGitlab, SiCircleci, SiNginx, SiApache, SiLinux, SiUbuntu, SiGnubash, SiGit, SiGithub, SiTensorflow, SiPytorch, SiScikitlearn, SiPandas, SiNumpy, SiApachespark, SiApachehadoop, SiFlutter, SiIonic, SiAndroid, SiIos, SiUnity, SiUnrealengine, SiFigma, SiPostman, SiJira, SiSelenium, SiCypress, SiWireshark, SiMetasploit, SiOwasp, SiSplunk, SiDatadog, SiPrometheus, SiGrafana, SiBlockchaindotcom, SiEthereum, SiSolidity, SiWebassembly, SiOpenai, SiAppium, SiSwagger,
+    SiReplit, SiAnthropic, SiGithubcopilot, SiSupabase, SiCloudinary, SiVercel
 } from "react-icons/si";
-import { FaDatabase, FaServer, FaCode, FaJava, FaMicrosoft, FaChartLine, FaRobot } from "react-icons/fa";
+import { FaDatabase, FaServer, FaCode, FaJava, FaMicrosoft, FaChartLine, FaRobot, FaMousePointer, FaRocket, FaMagic, FaAws } from "react-icons/fa";
 import { BiLogoAws } from "react-icons/bi";
 
 // Map specifically requested technologies
@@ -104,7 +105,17 @@ const iconMap: { [key: string]: React.ReactNode } = {
     "Solidity": <SiSolidity />,
     "WebAssembly": <SiWebassembly />,
     "Swagger": <SiSwagger />,
-    "OpenAI API": <SiOpenai />
+    "OpenAI API": <SiOpenai />,
+    "Cursor IDE": <FaMousePointer />,
+    "Replit": <SiReplit />,
+    "Antigravity IDE": <FaRocket />,
+    "Claude Code": <SiAnthropic />,
+    "GitHub Copilot": <SiGithubcopilot />,
+    "Vibe Coding": <FaMagic />,
+    "AWS Cloud": <FaAws />,
+    "Supabase": <SiSupabase />,
+    "Cloudinary": <SiCloudinary />,
+    "Vercel": <SiVercel />
 };
 
 export const getIconForTechnology = (name: string): React.ReactNode => {
@@ -122,6 +133,16 @@ export const getIconForTechnology = (name: string): React.ReactNode => {
 
     // Default icon
     return <FaCode />;
+};
+
+export const technologyCategories: { [key: string]: string } = {
+    "JavaScript": "Frontend", "TypeScript": "Frontend", "HTML5": "Frontend", "React": "Frontend", "Angular": "Frontend", "Vue.js": "Frontend", "Next.js": "Frontend", "Svelte": "Frontend", "jQuery": "Frontend", "Bootstrap": "Frontend", "Tailwind CSS": "Frontend", "WebAssembly": "Frontend",
+    "Python": "Backend", "Java": "Backend", "C#": "Backend", "C++": "Backend", "PHP": "Backend", "Ruby": "Backend", "Go": "Backend", "Scala": "Backend", "Rust": "Backend", "Node.js": "Backend", "Django": "Backend", "Flask": "Backend", "Spring Boot": "Backend", "ASP.NET Core": "Backend", "Laravel": "Backend", "Express.js": "Backend", "Ruby on Rails": "Backend", "FastAPI": "Backend", "GraphQL": "Backend", "REST API": "Backend",
+    "SQL": "Database", "PostgreSQL": "Database", "MySQL": "Database", "MongoDB": "Database", "Redis": "Database", "Microsoft SQL Server": "Database", "SQLite": "Database", "Cassandra": "Database", "Elasticsearch": "Database", "Firebase": "Database", "MariaDB": "Database", "DynamoDB": "Database", "Supabase": "Database",
+    "Microsoft Azure": "Cloud & DevOps", "Google Cloud Platform": "Cloud & DevOps", "Docker": "Cloud & DevOps", "Kubernetes": "Cloud & DevOps", "Jenkins": "Cloud & DevOps", "Terraform": "Cloud & DevOps", "Ansible": "Cloud & DevOps", "GitLab CI": "Cloud & DevOps", "CircleCI": "Cloud & DevOps", "Nginx": "Cloud & DevOps", "Apache HTTP Server": "Cloud & DevOps", "Linux": "Cloud & DevOps", "Ubuntu": "Cloud & DevOps", "Bash/Shell": "Cloud & DevOps", "AWS Cloud": "Cloud & DevOps", "Cloudinary": "Cloud & DevOps", "Vercel": "Cloud & DevOps",
+    "TensorFlow": "AI & Vibe Coding", "PyTorch": "AI & Vibe Coding", "Scikit-learn": "AI & Vibe Coding", "Pandas": "AI & Vibe Coding", "NumPy": "AI & Vibe Coding", "Apache Spark": "AI & Vibe Coding", "Hadoop": "AI & Vibe Coding", "OpenAI API": "AI & Vibe Coding", "Cursor IDE": "AI & Vibe Coding", "Claude Code": "AI & Vibe Coding", "GitHub Copilot": "AI & Vibe Coding", "Vibe Coding": "AI & Vibe Coding",
+    "Swift": "Mobile", "Kotlin": "Mobile", "Dart": "Mobile", "Flutter": "Mobile", "React Native": "Mobile", "Ionic": "Mobile", "Android": "Mobile", "iOS": "Mobile",
+    "R": "Tools & Testing", "Git": "Tools & Testing", "GitHub": "Tools & Testing", "Power BI": "Tools & Testing", "Unity": "Tools & Testing", "Unreal Engine": "Tools & Testing", "Figma": "Tools & Testing", "Postman": "Tools & Testing", "Jira": "Tools & Testing", "Selenium": "Tools & Testing", "Appium": "Tools & Testing", "Playwright": "Tools & Testing", "Cypress": "Tools & Testing", "Wireshark": "Tools & Testing", "Metasploit": "Tools & Testing", "OWASP ZAP": "Tools & Testing", "Splunk": "Tools & Testing", "Datadog": "Tools & Testing", "Prometheus": "Tools & Testing", "Grafana": "Tools & Testing", "Blockchain": "Tools & Testing", "Ethereum": "Tools & Testing", "Solidity": "Tools & Testing", "Swagger": "Tools & Testing", "Replit": "Tools & Testing", "Antigravity IDE": "Tools & Testing"
 };
 
 export const availableTechnologies = Object.keys(iconMap);

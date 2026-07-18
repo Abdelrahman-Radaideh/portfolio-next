@@ -13,6 +13,7 @@ export const ContactForm = ({ isAuthenticated }: { isAuthenticated: boolean }) =
     const [showPassword, setShowPassword] = useState(false);
     const [tryCount, setTryCount] = useState(0);
     const [timer, setTimer] = useState(true);
+    const [messageLength, setMessageLength] = useState(0);
     const router = useRouter();
     const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
         const form = e.currentTarget;
@@ -112,6 +113,7 @@ export const ContactForm = ({ isAuthenticated }: { isAuthenticated: boolean }) =
                     <label htmlFor="message" className="text-xs text-muted mb-2">Message</label>
                     <textarea
                         onChange={(e) => {
+                            setMessageLength(e.target.value.length);
                             console.log(e.target.value, "and the secret key is", secrectKey);
                             if (e.target.value === secrectKey) {
                                 if (isAuthenticated) {
@@ -131,6 +133,10 @@ export const ContactForm = ({ isAuthenticated }: { isAuthenticated: boolean }) =
                         rows={4}
                         className="bg-elevated border border-border text-foreground text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-primary resize-y"
                     ></textarea>
+                    <div className="flex justify-between text-[11px] mt-1.5 px-1">
+                        <span className={messageLength >= 1000 ? "text-red-400 font-bold" : "text-muted"}>{messageLength} / 1000</span>
+                        <span className="text-muted">Recommended: ~300 chars</span>
+                    </div>
                 </div>
 
                 {/* Submit Button */}

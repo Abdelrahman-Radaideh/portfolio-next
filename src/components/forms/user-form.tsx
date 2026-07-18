@@ -9,6 +9,7 @@ import { RequestUser, requestUserSchema } from "@/lib/models/user";
 import { toast, Toaster } from 'sonner';
 import { Loading } from '../loading';
 import Link from 'next/link';
+import { compressImage } from '@/lib/utils/client/image-compression';
 
 export function DashboardPortfolioForm({ userId }: { userId?: number }) {
     const router = useRouter();
@@ -23,10 +24,16 @@ export function DashboardPortfolioForm({ userId }: { userId?: number }) {
         register,
         handleSubmit,
         formState: { errors },
-        reset
+        reset,
+        watch
     } = useForm<RequestUser>({
         resolver: zodResolver(requestUserSchema),
     });
+    
+    const heroDesc = watch('hero_description') || '';
+    const aboutTitle = watch('about_title') || '';
+    const aboutDesc = watch('about_description') || '';
+    const capabilitiesDesc = watch('capabilities_description') || '';
     const [names, setNames] = useState<string[]>([]);
 
     useEffect(() => {
@@ -84,6 +91,17 @@ export function DashboardPortfolioForm({ userId }: { userId?: number }) {
             toast.error("Portfolio name already exists");
             setIsSubmitting(false);
             return;
+        }
+
+        if (data.picture) {
+            toast.info("Compressing image...", { id: "compress-toast" });
+            try {
+                data.picture = await compressImage(data.picture);
+            } catch (err) {
+                console.error("Failed to compress user picture:", err);
+                toast.error("Failed to compress image. Uploading original.");
+            }
+            toast.dismiss("compress-toast");
         }
 
         try {
@@ -240,8 +258,13 @@ export function DashboardPortfolioForm({ userId }: { userId?: number }) {
                                     <textarea
                                         {...register('hero_description')}
                                         rows={3}
+                                        maxLength={300}
                                         className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                                     />
+                                    <div className="flex justify-between text-[11px] mt-1.5 px-1">
+                                        <span className={heroDesc.length >= 300 ? "text-red-400 font-bold" : "text-muted"}>{heroDesc.length} / 300</span>
+                                        <span className="text-muted">Recommended: ~150 chars</span>
+                                    </div>
                                     {errors.hero_description && <p className="text-red-400 text-xs mt-1">{errors.hero_description.message}</p>}
                                 </div>
 
@@ -250,8 +273,13 @@ export function DashboardPortfolioForm({ userId }: { userId?: number }) {
                                     <textarea
                                         {...register('about_title')}
                                         rows={3}
+                                        maxLength={100}
                                         className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                                     />
+                                    <div className="flex justify-between text-[11px] mt-1.5 px-1">
+                                        <span className={aboutTitle.length >= 100 ? "text-red-400 font-bold" : "text-muted"}>{aboutTitle.length} / 100</span>
+                                        <span className="text-muted">Recommended: ~50 chars</span>
+                                    </div>
                                     {errors.about_title && <p className="text-red-400 text-xs mt-1">{errors.about_title.message}</p>}
                                 </div>
 
@@ -260,8 +288,13 @@ export function DashboardPortfolioForm({ userId }: { userId?: number }) {
                                     <textarea
                                         {...register('about_description')}
                                         rows={4}
+                                        maxLength={1000}
                                         className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                                     />
+                                    <div className="flex justify-between text-[11px] mt-1.5 px-1">
+                                        <span className={aboutDesc.length >= 1000 ? "text-red-400 font-bold" : "text-muted"}>{aboutDesc.length} / 1000</span>
+                                        <span className="text-muted">Recommended: ~400 chars</span>
+                                    </div>
                                     {errors.about_description && <p className="text-red-400 text-xs mt-1">{errors.about_description.message}</p>}
                                 </div>
 
@@ -270,8 +303,13 @@ export function DashboardPortfolioForm({ userId }: { userId?: number }) {
                                     <textarea
                                         {...register('capabilities_description')}
                                         rows={4}
+                                        maxLength={1000}
                                         className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                                     />
+                                    <div className="flex justify-between text-[11px] mt-1.5 px-1">
+                                        <span className={capabilitiesDesc.length >= 1000 ? "text-red-400 font-bold" : "text-muted"}>{capabilitiesDesc.length} / 1000</span>
+                                        <span className="text-muted">Recommended: ~400 chars</span>
+                                    </div>
                                     {errors.capabilities_description && <p className="text-red-400 text-xs mt-1">{errors.capabilities_description.message}</p>}
                                 </div>
 

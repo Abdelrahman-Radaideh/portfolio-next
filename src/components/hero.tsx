@@ -160,17 +160,7 @@ export default function HeroSection({ user, skills }: { user: User, skills: Skil
                             </div>
                         </div>
 
-                        {/* Centered Floating Glass Pill Badge */}
-                        <motion.div 
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                            className="absolute bottom-8 inset-x-0 flex justify-center z-30 pointer-events-none"
-                        >
-                            <div className="px-6 py-2 bg-[#6b7280]/80 backdrop-blur-md border border-white/20 rounded-[1.2rem] shadow-xl">
-                                <p className="text-white text-[14px] md:text-[15px] font-semibold tracking-wide text-center">{user.job_title || 'Software Engineer'}</p>
-                            </div>
-                        </motion.div>
+
                     </div>
 
                     {/* Small Decorative Floating Icon */}

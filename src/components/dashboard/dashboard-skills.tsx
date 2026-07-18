@@ -4,7 +4,7 @@ import { FaTrash, FaSearch, FaTimes } from "react-icons/fa";
 import { getActiveSkillsAction, deleteSkillAction, addSkillAction } from "@/actions/skill-action";
 import { getActiveUserAction } from '@/actions/user-action';
 import { Skill } from "@/lib/models/skill";
-import { availableTechnologies, getIconForTechnology } from "@/lib/utils/client/icon-mapper";
+import { availableTechnologies, getIconForTechnology, technologyCategories } from "@/lib/utils/client/icon-mapper";
 import { toast, Toaster } from "sonner";
 import { Loading } from "@/components/loading";
 import { ConfirmModal } from "@/components/ui/confirm-modal";
@@ -186,12 +186,28 @@ function SkillCard({ skill, onDelete }: { skill: Skill; onDelete: () => void }) 
 function AddSkillModal({ onClose, onAddSkill }: { onClose: () => void; onAddSkill: (name: string, type: "primary" | "secondary") => void }) {
     const [search, setSearch] = useState('');
     const [type, setType] = useState<"primary" | "secondary">("primary");
+    const [activeCategory, setActiveCategory] = useState<string>("All");
+
+    const categories = useMemo(() => {
+        const cats = new Set(Object.values(technologyCategories));
+        return ["All", ...Array.from(cats)].sort((a, b) => {
+            if (a === "All") return -1;
+            if (b === "All") return 1;
+            return a.localeCompare(b);
+        });
+    }, []);
 
     const filteredTech = useMemo(() => {
-        if (!search) return availableTechnologies;
-        const lower = search.toLowerCase();
-        return availableTechnologies.filter(t => t.toLowerCase().includes(lower));
-    }, [search]);
+        let list = availableTechnologies;
+        if (activeCategory !== "All") {
+            list = list.filter(t => technologyCategories[t] === activeCategory);
+        }
+        if (search) {
+            const lower = search.toLowerCase();
+            list = list.filter(t => t.toLowerCase().includes(lower));
+        }
+        return list;
+    }, [search, activeCategory]);
 
     return (
         <div className="fixed inset-0 bg-background/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 sm:p-6">
@@ -251,6 +267,19 @@ function AddSkillModal({ onClose, onAddSkill }: { onClose: () => void; onAddSkil
                             />
                             <span className={`font-bold transition-colors ${type === "secondary" ? "text-foreground" : "text-muted group-hover:text-foreground"}`}>Secondary Skill</span>
                         </label>
+                    </div>
+
+                    {/* Categories */}
+                    <div className="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar">
+                        {categories.map(cat => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveCategory(cat)}
+                                className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold transition-all ${activeCategory === cat ? 'bg-primary text-inverse shadow-md' : 'bg-elevated text-muted hover:text-foreground hover:bg-border border border-border'}`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
                     </div>
                 </div>
 

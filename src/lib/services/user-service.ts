@@ -1,7 +1,7 @@
 
 import sql from "../database-conection";
 import { User } from "../models/user";
-import { revalidateTag, cacheLife, cacheTag } from "next/cache";
+import { updateTag, cacheLife, cacheTag } from "next/cache";
 
 export async function getUsers() {
     "use cache";
@@ -32,7 +32,7 @@ export async function addUser(user: User) {
     if (error) {
         throw error;
     }
-    revalidateTag("users", "max");
+    updateTag("users");
     return data;
 }
 
@@ -42,7 +42,7 @@ export async function updateUser(user: User) {
         if (error) {
             throw error;
         }
-        revalidateTag("users", "max");
+        updateTag("users");
         return data;
     }
     else {
@@ -50,7 +50,7 @@ export async function updateUser(user: User) {
         if (error) {
             throw error;
         }
-        revalidateTag("users", "max");
+        updateTag("users");
         return data;
     }
 }
@@ -60,7 +60,7 @@ export async function deleteUser(id: number) {
     if (error) {
         throw error;
     }
-    revalidateTag("users", "max");
+    updateTag("users");
     return data;
 }
 
@@ -80,7 +80,10 @@ export async function activateUser(id: number) {
     if (error) {
         throw error;
     }
-    revalidateTag("users", "max");
+    updateTag("users");
+    updateTag("skills");
+    updateTag("projects");
+    updateTag("experiences");
     return data;
 }
 export async function deactivateUser() {
@@ -88,7 +91,10 @@ export async function deactivateUser() {
     if (error) {
         throw error;
     }
-    revalidateTag("users", "max");
+    updateTag("users");
+    updateTag("skills");
+    updateTag("projects");
+    updateTag("experiences");
     return data;
 }
 export async function updateUserPicture(id: number, picture_url: string) {
@@ -96,7 +102,7 @@ export async function updateUserPicture(id: number, picture_url: string) {
     if (error) {
         throw error;
     }
-    revalidateTag("users", "max");
+    updateTag("users");
     return data;
 }
 

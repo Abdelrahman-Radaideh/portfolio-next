@@ -6,6 +6,7 @@ import { User } from "@/lib/models/user";
 import { Suspense } from "react";
 import { Loading } from "@/components/loading";
 import Link from 'next/link';
+import Image from 'next/image';
 import { toast, Toaster } from "sonner";
 import { useState, useEffect } from "react";
 import { ConfirmModal } from "@/components/ui/confirm-modal";
@@ -77,7 +78,7 @@ export function DashboardPortfolios() {
                                 {/* Avatar */}
                                 <div className="relative w-12 h-12 rounded-full overflow-hidden bg-elevated border border-border-hover flex-shrink-0 flex items-center justify-center">
                                     {user.picture_url ? (
-                                        <img src={user.picture_url} alt={user.name} className="w-full h-full object-cover" />
+                                        <Image src={user.picture_url} alt={user.name} fill sizes="48px" className="object-cover" />
                                     ) : (
                                         <span className="text-sm font-bold text-muted">
                                             {user.name?.split(' ').map((n: string) => n[0]).join('').substring(0, 2).toUpperCase() || 'U'}

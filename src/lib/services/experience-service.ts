@@ -1,6 +1,6 @@
 import { Experience, ExperienceSchema } from "../models/experience";
 import sql from "@/lib/database-conection";
-import { revalidateTag, cacheLife, cacheTag } from "next/cache";
+import { updateTag, cacheLife, cacheTag } from "next/cache";
 
 export const getActiveExperiences = async () => {
     "use cache";
@@ -42,7 +42,7 @@ export const addExperience = async (experience: Experience) => {
         if (error) {
             throw error;
         }
-        revalidateTag("experiences", "max");
+        updateTag("experiences");
         return data;
     }
     catch (error) {
@@ -57,7 +57,7 @@ export const updateExperience = async (experience: Experience) => {
         if (error) {
             throw error;
         }
-        revalidateTag("experiences", "max");
+        updateTag("experiences");
         return data;
     }
     catch (error) {
@@ -72,7 +72,7 @@ export const deleteExperience = async (id: number) => {
         if (error) {
             throw error;
         }
-        revalidateTag("experiences", "max");
+        updateTag("experiences");
         return data;
     }
     catch (error) {

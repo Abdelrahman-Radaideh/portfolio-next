@@ -23,10 +23,13 @@ export function DashboardExperienceForm({ experienceId }: { experienceId?: numbe
         register,
         handleSubmit,
         formState: { errors },
-        reset
+        reset,
+        watch
     } = useForm<Experience>({
         resolver: zodResolver(ExperienceSchema),
     });
+
+    const expDesc = watch('description') || '';
 
     useEffect(() => {
         getActiveUserAction().then(res => {
@@ -146,9 +149,14 @@ export function DashboardExperienceForm({ experienceId }: { experienceId?: numbe
                                 <textarea
                                     {...register('description')}
                                     rows={4}
+                                    maxLength={2000}
                                     placeholder="Describe your role, responsibilities, and key achievements..."
                                     className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                                 />
+                                <div className="flex justify-between text-[11px] mt-1.5 px-1">
+                                    <span className={expDesc.length >= 2000 ? "text-red-400 font-bold" : "text-muted"}>{expDesc.length} / 2000</span>
+                                    <span className="text-muted">Recommended: ~500 chars</span>
+                                </div>
                                 {errors.description && <p className="text-red-400 text-xs mt-1">{errors.description.message}</p>}
                             </div>
 

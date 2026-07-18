@@ -1,6 +1,6 @@
 import sql from "../database-conection";
 import { Project } from "../models/project";
-import { revalidateTag, cacheLife, cacheTag } from "next/cache";
+import { updateTag, cacheLife, cacheTag } from "next/cache";
 
 export async function getProjects() {
     "use cache";
@@ -28,7 +28,7 @@ export async function addProject(project: Project) {
     if (error) {
         throw error;
     }
-    revalidateTag("projects", "max");
+    updateTag("projects");
     return data;
 }
 
@@ -37,7 +37,7 @@ export async function updateProject(project: Project) {
     if (error) {
         throw error;
     }
-    revalidateTag("projects", "max");
+    updateTag("projects");
     return data;
 }
 
@@ -46,7 +46,7 @@ export async function deleteProject(id: number) {
     if (error) {
         throw error;
     }
-    revalidateTag("projects", "max");
+    updateTag("projects");
     return data;
 }
 export async function updateProjectImages(id: number, images: string[]) {
@@ -54,7 +54,7 @@ export async function updateProjectImages(id: number, images: string[]) {
     if (error) {
         throw error;
     }
-    revalidateTag("projects", "max");
+    updateTag("projects");
     return data;
 }
 export async function getActiveProjects() {
@@ -113,6 +113,6 @@ export async function reorderProjects(user_id: number) {
         }
     }
 
-    revalidateTag("projects", "max");
+    updateTag("projects");
     return projects;
 }

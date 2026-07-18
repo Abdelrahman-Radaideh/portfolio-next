@@ -5,6 +5,7 @@ import Footer from "@/components/layout/footer";
 import { cookies } from "next/headers";
 import { checkAuth } from "@/lib/auth";
 import { Suspense } from "react";
+import { getActivePortfolioNameAction } from "@/actions/user-action";
 export const metadata: Metadata = {
   title: "Zaid Alradaideh",
   description: "Zaid Alradaideh - Portfolio",
@@ -29,7 +30,12 @@ async function athCheck() {
 
 async function AuthHeader() {
   const isAuthenticated = await athCheck();
-  return <Header isAuthenticated={isAuthenticated} />;
+  let portfolioName = undefined;
+  if (isAuthenticated) {
+      const portfolio = await getActivePortfolioNameAction();
+      portfolioName = portfolio?.portfolio_name;
+  }
+  return <Header isAuthenticated={isAuthenticated} activePortfolio={portfolioName} />;
 }
 
 export default async function MainLayout({

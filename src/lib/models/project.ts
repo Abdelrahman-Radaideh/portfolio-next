@@ -13,7 +13,7 @@ export const ProjectSchema = z.object({
     github_url: z.union([z.literal(""), z.string().url("Invalid URL")]).optional().nullable(),
     live_url: z.union([z.literal(""), z.string().url("Invalid URL")]).optional().nullable(),
     technologies: z.string().min(2, "Please provide at least one technology"),
-    images: z.array(z.string().url()).max(5, "Maximum 5 images allowed").optional().nullable()
+    images: z.array(z.string().url()).max(10, "Maximum 10 images allowed").optional().nullable()
 });
 export type Project = z.infer<typeof ProjectSchema>;
 
@@ -22,7 +22,7 @@ export const RequestProjectSchema = ProjectSchema.extend({
     new_images: z
         .array(
             z.instanceof(File)
-                .refine((file) => file.size <= 5 * 1024 * 1024, `Max image size is 5MB.`)
+                .refine((file) => file.size <= 10 * 1024 * 1024, `Max image size is 10MB.`)
                 .refine(
                     (file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type),
                     "Only .jpg, .jpeg, .png and .webp formats are supported."

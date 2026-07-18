@@ -14,6 +14,7 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
     "axios": "^1.14.0",
+    "browser-image-compression": "^2.0.2",
     "chalk": "^4.1.2",
     "cloudinary": "^2.9.0",
     "embla-carousel-react": "^8.6.0",

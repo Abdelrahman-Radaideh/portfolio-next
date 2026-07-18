@@ -8,7 +8,7 @@ import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Suspense } from 'react';
 
-export default function Header({ isAuthenticated }: { isAuthenticated: boolean }) {
+export default function Header({ isAuthenticated, activePortfolio }: { isAuthenticated: boolean, activePortfolio?: string }) {
     const pathname = usePathname();
     const { theme, setTheme } = useTheme();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -97,12 +97,18 @@ export default function Header({ isAuthenticated }: { isAuthenticated: boolean }
             >
                 <div className="max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 flex justify-between items-center w-full">
                     {/* Logo */}
-                    <div className="z-50 relative">
+                    <div className="z-50 relative flex items-center gap-4">
                         <a href="/" className="flex items-center gap-3 group" onClick={() => setIsMobileMenuOpen(false)}>
                             <span className="text-primary font-bold text-xl md:text-2xl tracking-widest uppercase transition-transform group-hover:scale-105">
                                 Zaid Alradaideh
                             </span>
                         </a>
+                        {isAuthenticated && activePortfolio && (
+                            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold bg-primary/10 text-primary border border-primary/20 rounded-full shadow-sm whitespace-nowrap">
+                                <FaProjectDiagram size={10} />
+                                Managing: {activePortfolio}
+                            </span>
+                        )}
                     </div>
 
                     {/* Desktop Navigation */}

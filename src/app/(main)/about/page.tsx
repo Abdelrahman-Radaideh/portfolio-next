@@ -114,7 +114,7 @@ const page = async () => {
                     {/* Experience Title */}
                     <div className="flex flex-col items-center text-center max-w-3xl mb-24">
                         <span className="text-[#0ea5e9] dark:text-[#38bdf8] text-xs font-bold tracking-[0.2em] uppercase mb-4">My Journey</span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-8">Experience & Education</h2>
+                        <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-8">Experience</h2>
                     </div>
 
                     <div className="relative w-full max-w-5xl mx-auto">

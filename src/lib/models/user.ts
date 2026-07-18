@@ -29,8 +29,8 @@ export const requestUserSchema = UserSchema
                 return val;
             })
             .refine((file) => !file || (typeof window !== "undefined" ? file instanceof window.File : true), "Expected a file")
-            .refine((file) => !file || file.size < 1024 * 1024 * 5, "Picture must be less than 5MB")
-            .refine((file) => !file || ["image/jpeg", "image/png"].includes(file.type), "Picture must be a JPEG or PNG")
+            .refine((file) => !file || file.size < 1024 * 1024 * 10, "Picture must be less than 10MB")
+            .refine((file) => !file || ["image/jpeg", "image/png", "image/webp"].includes(file.type), "Picture must be a JPEG, PNG, or WebP")
             .nullable()
     });
 

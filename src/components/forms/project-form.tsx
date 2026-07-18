@@ -10,6 +10,7 @@ import { toast, Toaster } from 'sonner';
 import { Loading } from '@/components/loading';
 import Link from 'next/link';
 import { FaSave, FaPlus, FaTimes } from "react-icons/fa";
+import { compressImage } from '@/lib/utils/client/image-compression';
 
 export function DashboardProjectForm({ projectId }: { projectId?: number }) {
     const router = useRouter();
@@ -25,16 +26,19 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
     const [newImagePreviews, setNewImagePreviews] = useState<string[]>([]);
     const [statusOptions, setStatusOptions] = useState<string[]>(["Completed", "In Progress", "Suspended"]);
 
-    const MAX_IMAGES = 5;
+    const MAX_IMAGES = 10;
 
     const {
         register,
         handleSubmit,
         formState: { errors, dirtyFields },
-        reset
+        reset,
+        watch
     } = useForm<RequestProject>({
         resolver: zodResolver(RequestProjectSchema),
     });
+
+    const projDesc = watch('description') || '';
 
     useEffect(() => {
         getActiveUserAction().then(res => {
@@ -85,7 +89,7 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
         }
     }, [projectId, reset, isEditMode]);
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
 
         const filesArray = Array.from(e.target.files);
@@ -96,9 +100,23 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
             return;
         }
 
-        setNewImageFiles(prev => [...prev, ...filesArray]);
+        toast.info("Compressing images...", { id: "compress-toast" });
+        const compressedFiles: File[] = [];
+        for (const file of filesArray) {
+            try {
+                const compressed = await compressImage(file);
+                compressedFiles.push(compressed);
+            } catch (err) {
+                console.error(err);
+                toast.error(`Failed to compress ${file.name}`);
+                compressedFiles.push(file);
+            }
+        }
+        toast.dismiss("compress-toast");
 
-        const previews = filesArray.map(file => URL.createObjectURL(file));
+        setNewImageFiles(prev => [...prev, ...compressedFiles]);
+
+        const previews = compressedFiles.map(file => URL.createObjectURL(file));
         setNewImagePreviews(prev => [...prev, ...previews]);
     };
 
@@ -367,14 +385,19 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
                                 </div>
                             </div>
 
-                            <div>
+                                <div>
                                 <label className="block text-xs font-bold text-muted mb-2 uppercase tracking-wider">Description</label>
                                 <textarea
                                     {...register('description')}
                                     rows={5}
+                                    maxLength={2000}
                                     placeholder="Briefly describe the project features and challenges..."
                                     className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                                 />
+                                <div className="flex justify-between text-[11px] mt-1.5 px-1">
+                                    <span className={projDesc.length >= 2000 ? "text-red-400 font-bold" : "text-muted"}>{projDesc.length} / 2000</span>
+                                    <span className="text-muted">Recommended: ~300 chars</span>
+                                </div>
                                 {errors.description && <p className="text-red-400 text-xs mt-1">{errors.description.message}</p>}
                             </div>
 

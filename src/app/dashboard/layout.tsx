@@ -4,6 +4,7 @@ import Header from "@/components/layout/header";
 import { cookies } from "next/headers";
 import { checkAuth } from "@/lib/auth";
 import { Suspense } from "react";
+import { getActivePortfolioNameAction } from "@/actions/user-action";
 
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 
 async function AuthHeader() {
     let openDashboard = false;
+    let portfolioName = undefined;
     const cookieStore = await cookies();
     try {
         const token = cookieStore.get('auth_code')?.value;
@@ -20,12 +22,14 @@ async function AuthHeader() {
             const auth = await checkAuth(token);
             if (auth) {
                 openDashboard = true;
+                const portfolio = await getActivePortfolioNameAction();
+                portfolioName = portfolio?.portfolio_name;
             }
         }
     } catch (error) {
         console.error("Auth header check error:", error);
     }
-    return <Header isAuthenticated={openDashboard} />;
+    return <Header isAuthenticated={openDashboard} activePortfolio={portfolioName} />;
 }
 
 export default function DashboardLayout({

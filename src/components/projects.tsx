@@ -1,5 +1,6 @@
 "use client";
 import { Project } from "@/lib/models/project";
+import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
@@ -54,11 +55,16 @@ export default function Projects({ projects }: { projects: Project[] }) {
             >
                 {imgeurl.map((slide, index) => (
                     <SwiperSlide key={index}>
-                        <img
-                            src={slide}
-                            alt={`${projectName} preview ${index + 1}`}
-                            className="w-full h-full object-cover object-center transform transition-transform duration-[10s] hover:scale-105"
-                        />
+                        <div className="relative w-full h-full">
+                            <Image
+                                src={slide}
+                                alt={`${projectName} preview ${index + 1}`}
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                priority={index === 0}
+                                className="object-cover object-center transform transition-transform duration-[10s] hover:scale-105"
+                            />
+                        </div>
                     </SwiperSlide>
                 ))}
             </Swiper>
@@ -128,8 +134,8 @@ export default function Projects({ projects }: { projects: Project[] }) {
                         </p>
 
                         {/* Metadata Bento Box */}
-                        <div className="relative overflow-hidden bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 backdrop-blur-md rounded-[2rem] p-6 md:p-8 grid grid-cols-2 gap-y-8 gap-x-4 mb-10 shadow-xl lg:shadow-2xl hover:border-primary/30 transition-all duration-normal ease-smooth group">
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-normal ease-smooth pointer-events-none" />
+                        <div className="relative bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 backdrop-blur-md rounded-[2rem] p-6 md:p-8 grid grid-cols-2 gap-y-8 gap-x-4 mb-10 shadow-xl lg:shadow-2xl hover:border-primary/30 transition-all duration-normal ease-smooth group">
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-normal ease-smooth pointer-events-none rounded-[2rem]" />
                             <div className="flex flex-col gap-2 relative z-10">
                                 <span className="text-[10px] text-muted font-bold uppercase tracking-widest leading-none">Year</span>
                                 <span className="text-sm md:text-base font-bold text-foreground leading-none">{project.year}</span>
@@ -138,9 +144,17 @@ export default function Projects({ projects }: { projects: Project[] }) {
                                 <span className="text-[10px] text-muted font-bold uppercase tracking-widest leading-none">Role</span>
                                 <span className="text-sm md:text-base font-bold text-foreground leading-none">{project.role}</span>
                             </div>
-                            <div className="flex flex-col gap-2 relative z-10">
+                            <div className="flex flex-col gap-2 relative z-[60] group/tech cursor-pointer">
                                 <span className="text-[10px] text-muted font-bold uppercase tracking-widest leading-none">Technologies</span>
-                                <span className="text-sm md:text-base font-bold text-primary drop-shadow-[0_0_8px_var(--primary-glow)] leading-snug">{project.technologies}</span>
+                                <span className="text-sm md:text-base font-bold text-primary drop-shadow-[0_0_8px_var(--primary-glow)] leading-snug line-clamp-2">{project.technologies}</span>
+                                
+                                {/* Custom Hover Popup */}
+                                <div className="absolute bottom-full left-0 mb-3 w-max max-w-[260px] md:max-w-[320px] p-4 bg-surface border border-primary/30 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover/tech:opacity-100 group-hover/tech:visible group-hover/tech:-translate-y-1 transition-all duration-300 z-[100]">
+                                    <div className="absolute -bottom-2 left-6 w-4 h-4 bg-surface border-b border-r border-primary/30 transform rotate-45" />
+                                    <p className="text-sm font-bold text-primary leading-relaxed relative z-10">
+                                        {project.technologies}
+                                    </p>
+                                </div>
                             </div>
                             <div className="flex flex-col gap-2 relative z-10">
                                 <span className="text-[10px] text-muted font-bold uppercase tracking-widest leading-none">Client</span>
