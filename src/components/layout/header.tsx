@@ -103,7 +103,7 @@ export default function Header({ isAuthenticated, activePortfolio }: { isAuthent
                                 Zaid Alradaideh
                             </span>
                         </a>
-                        {isAuthenticated && activePortfolio && (
+                        {isAuthenticated && activePortfolio && pathname?.startsWith('/dashboard') && (
                             <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold bg-primary/10 text-primary border border-primary/20 rounded-full shadow-sm whitespace-nowrap">
                                 <FaProjectDiagram size={10} />
                                 Managing: {activePortfolio}

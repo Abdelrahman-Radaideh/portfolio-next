@@ -9,8 +9,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { toast, Toaster } from "sonner";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { ConfirmModal } from "@/components/ui/confirm-modal";
 export function DashboardPortfolios() {
+    const router = useRouter();
     const [users, setUsers] = useState<User[]>([]);
     const [userToDelete, setUserToDelete] = useState<number | null>(null);
     const fetchUsers = () => {
@@ -29,6 +31,7 @@ export function DashboardPortfolios() {
             await activateUserAction(id);
             toast.success("Portfolio activated successfully");
             fetchUsers();
+            router.refresh();
         } catch (error) {
             toast.error("Failed to activate portfolio");
             console.error(error);
@@ -45,6 +48,7 @@ export function DashboardPortfolios() {
             await deleteUserAction(userToDelete);
             toast.success("Portfolio deleted successfully");
             fetchUsers();
+            router.refresh();
         } catch (error) {
             toast.error("Failed to delete portfolio");
             console.error(error);
