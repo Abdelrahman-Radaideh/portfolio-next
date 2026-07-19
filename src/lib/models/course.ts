@@ -10,7 +10,7 @@ export const CourseSchema = z.object({
     description: z.string().optional().nullable(),
     sort_order: z.number().min(1, "Sort order must be at least 1").max(100, "Sort order must be at most 100").optional().default(1),
     year: z.coerce.number().min(1900, "Year is required"),
-    type: z.enum(["course", "certificate"], { required_error: "Type is required" }),
+    type: z.enum(["course", "certificate"], { message: "Type is required" }),
     hours: z.coerce.number().min(1, "Hours must be at least 1"),
 });
 
