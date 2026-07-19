@@ -221,3 +221,104 @@ COMMIT;
 --    these will need reimplementation on the new provider.
 -- 4. No extensions (e.g. pgcrypto, uuid-ossp) were in use.
 -- ============================================================
+
+-- ============================================================
+-- Seed Data (Temporary Placeholder Profile)
+-- ============================================================
+
+-- Insert a temporary active user
+INSERT INTO public.users (
+  name, 
+  job_title, 
+  email, 
+  hero_description, 
+  about_description, 
+  capabilities_description, 
+  about_title, 
+  linkedin_url, 
+  github_url, 
+  resume_url, 
+  portfolio_name, 
+  is_active
+) VALUES (
+  'Zaid Radaideh', 
+  'Software Engineer', 
+  'zaidradaideh.dev@gmail.com', 
+  'Building beautiful, robust, and scalable web applications.', 
+  'I am a passionate software engineer dedicated to crafting seamless digital experiences and solving complex problems.', 
+  'My core capabilities include full-stack web development, system design, and ensuring high-quality software delivery.', 
+  'About Me', 
+  'https://linkedin.com/in/zaid-radaideh', 
+  'https://github.com/zaid-radaideh', 
+  'https://zaid-alradaideh.vercel.app/resume.pdf', 
+  'Zaid''s Portfolio', 
+  true
+);
+
+-- Note: We use DO block or subqueries to get the user_id dynamically for the related tables.
+DO $$
+DECLARE
+  v_user_id int;
+BEGIN
+  SELECT id INTO v_user_id FROM public.users WHERE email = 'zaidradaideh.dev@gmail.com' LIMIT 1;
+
+  -- Insert Project
+  INSERT INTO public.projects (
+    user_id, title, client, role, year, status, sort_order, description, technologies, live_url
+  ) VALUES (
+    v_user_id, 
+    'Portfolio Website — Personal project', 
+    'Personal', 
+    'Full-stack developer', 
+    2026, 
+    'Completed', 
+    1, 
+    'A personal portfolio to showcase my projects, skills, and experiences. Built with modern web technologies.', 
+    'Next.js/TS, React/TS, Tailwind CSS, Node.js', 
+    'https://zaid-alradaideh.vercel.app'
+  );
+
+  -- Insert Skill
+  INSERT INTO public.skills (
+    user_id, name, type
+  ) VALUES (
+    v_user_id, 
+    'React', 
+    'primary'
+  );
+
+  -- Insert Experience
+  INSERT INTO public.experiences (
+    user_id, role, company, period, description
+  ) VALUES (
+    v_user_id, 
+    'Internship — Quality Assurance', 
+    'ARD (ArabiaWeather)', 
+    'Sep 2025 – Present', 
+    'Assisted in the quality assurance process, testing software to ensure it meets standard requirements and specifications.'
+  );
+
+  -- Insert Course
+  INSERT INTO public.courses (
+    user_id, title, provider, year, type, hours
+  ) VALUES (
+    v_user_id, 
+    'AWS Certified Cloud Practitioner', 
+    'AWS', 
+    2026, 
+    'certificate', 
+    12
+  );
+
+  -- Insert Education
+  INSERT INTO public.education (
+    user_id, institution, degree, period, sort_order
+  ) VALUES (
+    v_user_id, 
+    'Jordan University of Science and Technology', 
+    'Bachelor of Software Engineering', 
+    '2021–2025', 
+    1
+  );
+
+END $$;

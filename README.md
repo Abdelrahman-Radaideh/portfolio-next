@@ -1,174 +1,125 @@
-# Portfolio Website
+# Modern Portfolio Website & Admin Dashboard
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
-![Made with ❤️](https://img.shields.io/badge/Made_with-❤️-ff69b4.svg?style=for-the-badge)
 
-This portfolio website showcases my projects and skills, built with Next.js and TypeScript. It features a responsive design, smooth animations, and a user-friendly interface. The site includes sections for project details, skills, and contact information, providing a comprehensive overview of my work.
+A highly customizable, fully responsive portfolio website built with Next.js and TypeScript. It includes a beautiful frontend powered by Framer Motion animations and a secure, fully-featured Admin Dashboard to manage your content dynamically without writing a single line of code.
 
-Demo: [UPDATE THIS LINK](https://zar.onrender.com/)
+**Demo:** [View Live Site](https://zaid-alradaideh.vercel.app)
 
-## ✨ Features
+---
 
-- **Responsive Design**: Optimized for all devices and screen sizes.
-- **Dark/Light Theme**: Toggle between themes with smooth transitions.
-- **Smooth Animations**: Powered by Framer Motion for an engaging user experience.
-- **Modern UI**: Custom-styled UI utilizing the power of Tailwind CSS.
-- **TypeScript**: Full type safety and a better development experience.
-- **Contact Form**: Backend route integration with secure email functionality.
-- **Error Handling**: Graceful error interception using Next.js `error.tsx` boundaries and custom `not-found.tsx` views for a robust user experience.
-- **Caching Strategy**: Advanced data caching utilizing Next.js built-in cache mechanisms to minimize API calls and enhance response times.
-- **Optimized Performance**: Leverages Next.js Server-Side Rendering (SSR) and file-based routing for blazing fast page loads and SEO.
+## ✨ Key Features
 
-### Backend & Data Management
-- **Supabase Integration**: Uses Supabase as the primary database for storing user, project, skill, and experience data.
-- **Cloudinary Integration**: Manages image uploads and optimization for profile pictures and project assets.
-- **Admin Dashboard**: A secure, comprehensive dashboard to manage all portfolio content without touching code.
-    - **Multiple Portfolios**: Create and switch between different portfolio profiles to tailor your CV for specific job applications.
-    - **CRUD Operations**: Create, Read, Update, and Delete Portfolios, Skills, Projects, and Experiences.
-    - **Stats & Analysis**: View real-time statistics about your portfolio data.
-- **Data Import/Export**: 
-    - **Export**: Download your entire portfolio data as a JSON file directly from the dashboard.
-    - **Import**: Upload a JSON file to populate the dashboard with data instantly.
-- **Security Layer**: Custom middleware (`security-code`) protects API endpoints to prevent unauthorized access.
+- **Modern & Responsive UI:** Fully optimized for all devices with Dark/Light mode support.
+- **Secure Admin Dashboard:** A hidden dashboard protected by a JWT-based Email OTP system.
+- **Full Content Management:** Perform full CRUD operations on your Projects, Skills, Experiences, Education, and Courses.
+- **Multi-Portfolio Support:** Create and seamlessly switch between different portfolio profiles (e.g., tailoring one for Software Engineering, another for UI/UX Design).
+- **Drag & Drop Reordering:** Easily rearrange the display order of your projects and experiences using interactive drag-and-drop.
+- **Analytics Ready:** Built-in integration with PostHog to track visitors and portfolio performance.
+- **Export & Import:** Export your entire portfolio to a `.json` file for backups, or import a JSON file to instantly populate your dashboard.
+- **Static "Antigravity" Deployment:** Support for exporting data and deploying purely static pages.
+
+---
 
 ## 🧰 Tech Stack
 
 | Technology | Role |
 |-----------|----------------------------------|
-| **Next.js** | React framework for production & routing |
-| **TypeScript**| Static typing for application logic |
+| **Next.js 15+** | React framework for production & routing |
+| **TypeScript**| Static typing for robust application logic |
 | **Tailwind CSS**| Utility-first CSS styling framework |
 | **Framer Motion**| Declarative animation library |
-| **Supabase** | Primary relational database |
-| **Cloudinary**| Asset and image hosting platform |
+| **Supabase** | PostgreSQL database for storing user data |
+| **Cloudinary**| Image hosting and optimization |
+| **PostHog** | Product analytics and event tracking |
+| **Nodemailer** | Secure backend email functionality for OTP and contact forms |
 
-## 📋 Requirements
+---
 
-To run this project, you will need:
+## 🚀 Step-by-Step Setup Guide
 
-1.  **Node.js** (v18 or higher)
-2.  **npm** or **yarn**
-3.  **Supabase Account**: For database services.
-4.  **Cloudinary Account**: For image hosting.
+Follow these exact steps to fork this repository, set it up, and get your portfolio running on your local machine.
 
-## 🛠️ Environment Variables
-
-Create a `.env` file in the root directory with the exact following variables:
-
-```env
-# Server Configuration
-PORT=3000
-
-# Database (Supabase)
-SUPABASE_URL=your_supabase_url
-SUPABASE_KEY=your_supabase_anon_key
-
-# Image Hosting (Cloudinary)
-CLOUD_NAME=your_cloud_name
-CLOUD_API_KEY=your_api_key
-CLOUD_API_SECRET=your_api_secret
-NEXT_PUBLIC_FOLDER_NAME=folder_name
-
-# Email Service (Contact Form)
-EMAIL=your-email@gmail.com
-PASSWORD=your-app-password
-
-# Security
-JWT_SECRET=your_secret_security_code_for_jwt
+### 1. Clone the Repository
+```bash
+git clone <your-fork-url>
+cd portfolio
 ```
 
-## 🚀 Getting Started
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-### Installation
+### 3. Configure Your Environment Variables
+You need to set up your keys for the various third-party services used in this project.
+1. Copy the template file:
+   ```bash
+   cp .env.template .env.local
+   ```
+2. Open `.env.local` and replace the placeholder values (e.g., `xxx`) with your actual credentials. You will need:
+   - **Supabase**: URL and Service Role Key (from your Supabase project settings).
+   - **Cloudinary**: Cloud Name, API Key, and API Secret.
+   - **Email Config**: The email address you want to receive messages at, and an App Password (e.g., Gmail App Password) to allow NodeMailer to send emails.
+   - **Security**: Create a random string for `JWT_SECRET` and set a phrase for `NEXT_PUBLIC_SECRET_KEY` (used to trigger the dashboard login).
+   - **PostHog (Optional)**: Tokens for analytics.
 
-1.  **Clone the repository**
-    ```bash
-    git clone <your-repository-url>
-    cd portfolio
-    ```
+### 4. Database Setup & Seeding (Supabase)
+To prevent the application from crashing when you first launch it, we provide a seed script that creates a temporary placeholder profile.
+1. Create a new project in [Supabase](https://supabase.com/).
+2. Navigate to the **SQL Editor** in your Supabase dashboard.
+3. Open the `src/config/setup-database.sql` file located in this repository.
+4. Copy its contents (which includes the table schema and the initial placeholder data), paste them into the SQL Editor, and click **Run**.
+5. *Success! Your database now has the correct tables and is populated with placeholder data (Zaid''s Profile, Projects, Skills, etc).*
 
-2.  **Install dependencies**
-    ```bash
-    npm install
-    ```
+### 5. Start the Application
+```bash
+npm run dev
+```
+Open your browser and navigate to `http://localhost:3000`. You should now see the beautiful placeholder portfolio rendered correctly!
 
-### Running the Application
+---
 
-1.  **Start the development server**
-    ```bash
-    npm run dev
-    ```
-2. Open your browser and navigate to `http://localhost:3000`
+## 🔐 Accessing Your Dashboard
 
-## 📦 Static Deployment (Antigravity Branch)
+The Admin Dashboard is hidden to protect your data. To log in and edit the placeholder data with your actual information:
 
-This project supports a special static deployment workflow using the **"antigravity"** branch.
+1. Scroll down to the **Contact** section at the bottom of the homepage.
+2. In the "Message" text area, type your secret access code (defined as `NEXT_PUBLIC_SECRET_KEY` in your `.env.local`). Default is: `zaidopendash`
+3. The system will detect the phrase and trigger a secure modal. 
+4. A One-Time Password (OTP) will be securely sent to the email address you configured.
+5. Enter the OTP code from your email into the modal to authenticate.
+6. **Welcome to your Dashboard!** From here, you can update the temporary seeded user with your own picture, name, projects, and experiences.
 
-1.  **Generate Data**: Go to your Admin Dashboard in the local application.
-2.  **Export JSON**: Use the "Export User Data" feature to download your `portfolio_data.json` containing all your info, projects, and skills.
-3.  **Deploy**:
-    > **replace "data.json" with your data.json in the "antigravity" branch.**
-    
-    (Simply placing your generated JSON file in the appropriate location on the `antigravity` branch allows strictly static deployment of your personalized portfolio).
-
-## 🔐 Accessing the Dashboard
-
-The Admin Dashboard is hidden by default. To access it:
-
-1.  Scroll down to the **Contact** section (Footer).
-2.  In the "Message" field, type the secret access code:
-    > **zaidopendash**
-3.  A secure modal will appear. It will automatically send a secondary security code to your email.
-4.  Enter the code you received in your email to authenticate and enter the dashboard.
+---
 
 ## 📁 Project Structure
 
 ```
 portfolio/
 ├── src/                    # Main source code directory
-│   ├── actions/            # Server actions for data mutation
-│   ├── app/                # Next.js App Router (pages, layouts, error boundaries)
-│   ├── assets/             # Static assets (images, icons)
-│   ├── components/         # Reusable UI components
-│   ├── config/             # Application configurations
-│   ├── contexts/           # React Context providers for state management
-│   ├── lib/                # Utility functions, helpers, and shared logic
-│   ├── proxy.ts            # Custom proxy (not middleware) for request handling
-│   ├── templates/          # Pre-defined templates for UI/UX
-│   └── types/              # TypeScript type definitions and interfaces
-├── public/                 # Static public assets
-├── .env                    # Environment variables
-├── next.config.ts          # Next.js configuration
-├── tailwind.config.ts      # Tailwind CSS configuration
-├── tsconfig.json           # TypeScript configuration
-├── eslint.config.mjs       # ESLint configuration
-├── postcss.config.mjs      # PostCSS configuration
-├── package.json            # Project dependencies and scripts
-└── README.md               # This file
+│   ├── actions/            # Next.js Server Actions for secure database mutations
+│   ├── app/                # App Router (pages, layouts, API routes, dashboards)
+│   ├── components/         # Reusable React UI components
+│   ├── lib/                # Database models, services, auth logic, and utilities
+│   └── templates/          # Email HTML templates
+├── public/                 # Static assets
+├── .env.template           # Template for environment variables
+├── supabase_seed.sql       # Initial database seeding script
+├── package.json            # Project dependencies
+└── README.md               # Documentation
 ```
 
-## 👨💻 Author
-
-**Zaid Radaideh**
-
-- LinkedIn: [linkedin.com/in/zaid-radaideh](https://linkedin.com/in/zaid-radaideh)
-
 ## 🤝 Contributing
-
-Contributions are welcome! Please fork the repository and open a pull request.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Contributions are welcome! Please fork the repository and open a pull request for any new features or bug fixes.
 
 ## 📞 Contact
-
-For questions or collaboration opportunities, feel free to reach out:
+For questions or collaboration opportunities, feel free to reach out to the original author:
 - Email: zaidradaideh.dev@gmail.com
+- LinkedIn: [linkedin.com/in/zaid-radaideh](https://linkedin.com/in/zaid-radaideh)
 
-⭐ If you found this project helpful, please give it a star!
+⭐ **If you found this template helpful, please give it a star!**
