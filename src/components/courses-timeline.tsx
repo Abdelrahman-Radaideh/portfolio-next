@@ -46,12 +46,31 @@ export default function CoursesTimeline({ courses }: { courses: Course[] }) {
                                             {course.type && <span className="text-muted text-sm capitalize">({course.type})</span>}
                                             {course.hours && <span className="text-muted text-sm">{course.hours} hrs</span>}
                                         </div>
-                                        {course.credential_id && <span className="text-muted text-sm mt-1">Credential ID: {course.credential_id}</span>}
                                     </div>
                                 </div>
                                 
                                 {course.description && (
-                                    <p className="text-muted text-lg md:text-xl leading-relaxed font-light whitespace-pre-wrap pl-2 border-l-2 border-primary/20 group-hover:border-primary transition-colors duration-500">{course.description}</p>
+                                    <p className="text-muted text-lg md:text-xl leading-relaxed font-light whitespace-pre-wrap pl-2 border-l-2 border-primary/20 group-hover:border-primary transition-colors duration-500 mb-6">{course.description}</p>
+                                )}
+                                
+                                {(course.certificate_url || course.credential_id) && (
+                                    <div className="flex flex-wrap items-center gap-4 mt-6 pt-6 border-t border-border/50">
+                                        {course.certificate_url && (
+                                            <a 
+                                                href={course.certificate_url} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 bg-primary/10 hover:bg-primary text-primary hover:text-inverse font-bold py-2.5 px-6 rounded-xl transition-all duration-300"
+                                            >
+                                                View Certificate <FaExternalLinkAlt size={14} />
+                                            </a>
+                                        )}
+                                        {course.credential_id && (
+                                            <div className="inline-flex items-center gap-2 bg-surface text-muted text-sm font-medium py-2 px-4 rounded-xl border border-border/50">
+                                                <span className="opacity-70">Credential ID:</span> <span className="text-foreground tracking-wide">{course.credential_id}</span>
+                                            </div>
+                                        )}
+                                    </div>
                                 )}
                             </div>
                         </div>

@@ -41,7 +41,7 @@ export function ExportDataCard() {
             </div>
             <h3 className="text-xl font-bold text-foreground mb-3">Export User Data</h3>
             <p className="text-muted text-sm mb-8 leading-relaxed max-w-sm flex-1">
-                Download all your active portfolio data including skills, projects, and experiences in JSON format.
+                Download all your active portfolio data including skills, projects, experiences, courses, and education in JSON format.
             </p>
             <button
                 onClick={handleExport}

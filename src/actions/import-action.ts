@@ -5,6 +5,8 @@ import { addUser } from "@/lib/services/user-service";
 import { addProject } from "@/lib/services/project-service";
 import { addSkill } from "@/lib/services/skills-service";
 import { addExperience } from "@/lib/services/experience-service";
+import { addCourse } from "@/lib/services/course-service";
+import { addEducation } from "@/lib/services/education-service";
 import { revalidatePath } from "next/cache";
 
 export async function importDataAction(data: any) {
@@ -108,6 +110,52 @@ export async function importDataAction(data: any) {
             }
         }
 
+        // 6. Prepare and add courses
+        if (Array.isArray(data.courses)) {
+            for (const course of data.courses) {
+                const newCourse = {
+                    user_id: newUserId,
+                    title: course.title,
+                    provider: course.provider,
+                    credential_id: course.credential_id,
+                    certificate_url: course.certificate_url,
+                    description: course.description,
+                    sort_order: course.sort_order,
+                    year: course.year,
+                    type: course.type,
+                    hours: course.hours,
+                };
+                try {
+                    await addCourse(newCourse);
+                } catch (error) {
+                    console.error("Error adding course:", error);
+                    throw new Error("Failed to add course.");
+                }
+            }
+        }
+
+        // 7. Prepare and add education
+        if (Array.isArray(data.education)) {
+            for (const edu of data.education) {
+                const newEdu = {
+                    user_id: newUserId,
+                    institution: edu.institution,
+                    degree: edu.degree,
+                    period: edu.period,
+                    grade: edu.grade,
+                    location: edu.location,
+                    description: edu.description,
+                    sort_order: edu.sort_order,
+                };
+                try {
+                    await addEducation(newEdu);
+                } catch (error) {
+                    console.error("Error adding education:", error);
+                    throw new Error("Failed to add education.");
+                }
+            }
+        }
+
         revalidatePath("/");
 
         return { success: true, message: "Data imported successfully!" };
@@ -120,8 +168,8 @@ export async function importDataAction(data: any) {
 import { getActiveUser } from "@/lib/services/user-service";
 import { getProjectsByUserId, getActiveProjects, getProjectById, reorderProjects } from "@/lib/services/project-service";
 import { getExperiencesByUserId, getActiveExperiences, getExperienceById } from "@/lib/services/experience-service";
-import { getCoursesByUserId, addCourse, getActiveCourses, getCourseById, reorderCourses } from "@/lib/services/course-service";
-import { getEducationByUserId, addEducation, getActiveEducation, getEducationById, reorderEducation } from "@/lib/services/education-service";
+import { getCoursesByUserId, getActiveCourses, getCourseById, reorderCourses } from "@/lib/services/course-service";
+import { getEducationByUserId, getActiveEducation, getEducationById, reorderEducation } from "@/lib/services/education-service";
 
 export async function getItemsFromPortfolioAction(sourceUserId: number, entityType: 'courses' | 'projects' | 'education' | 'experience') {
     const cookieStore = await cookies();

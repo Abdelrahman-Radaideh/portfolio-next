@@ -5,6 +5,8 @@ import { getActiveUserAction } from "./user-action";
 import { getActiveProjectsAction } from "./project-action";
 import { getActiveSkillsAction } from "./skill-action";
 import { getActiveExperiencesAction } from "./experience-action";
+import { getActiveCoursesAction } from "./course-action";
+import { getActiveEducationAction } from "./education-action";
 
 export async function getExportDataAction() {
     try {
@@ -17,11 +19,13 @@ export async function getExportDataAction() {
         if (!auth) {
             return { success: false, message: "Unauthorized", status: 401 };
         }
-        const [activeUser, activeProjects, activeSkills, activeExperiences] = await Promise.all([
+        const [activeUser, activeProjects, activeSkills, activeExperiences, activeCourses, activeEducation] = await Promise.all([
             getActiveUserAction(),
             getActiveProjectsAction(),
             getActiveSkillsAction(),
             getActiveExperiencesAction(),
+            getActiveCoursesAction(),
+            getActiveEducationAction(),
         ]);
 
 
@@ -30,6 +34,8 @@ export async function getExportDataAction() {
             projects: activeProjects,
             skills: activeSkills,
             experiences: activeExperiences,
+            courses: activeCourses,
+            education: activeEducation,
             exportedAt: new Date().toISOString(),
         };
     } catch (error) {
