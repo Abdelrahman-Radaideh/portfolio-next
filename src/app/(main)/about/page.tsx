@@ -2,17 +2,23 @@ import { getActiveUserAction } from '@/actions/user-action'
 import { getActiveSkillsAction } from '@/actions/skill-action'
 import { Skill } from '@/lib/models/skill'
 import { getActiveExperiences } from '@/lib/services/experience-service'
+import { getActiveEducation } from '@/lib/services/education-service'
+import { getActiveCourses } from '@/lib/services/course-service'
 import { Suspense } from 'react'
 import { Loading } from '@/components/loading'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { getIconForTechnology } from '@/lib/utils/client/icon-mapper'
 import { Experience } from '@/lib/models/experience'
 import ExperienceTimeline from '@/components/experience-timeline'
+import EducationTimeline from '@/components/education-timeline'
+import CoursesTimeline from '@/components/courses-timeline'
 
 const page = async () => {
     const user = await getActiveUserAction();
     const skills = await getActiveSkillsAction();
     const experiences = await getActiveExperiences();
+    const education = await getActiveEducation();
+    const courses = await getActiveCourses();
     console.log(experiences);
     console.log(skills);
     const mainSkills = skills.filter((skill: Skill) => skill.type === "primary");
@@ -110,21 +116,57 @@ const page = async () => {
                     </div>
                 </section>
                 {/* Experience Section */}
-                <section className="flex flex-col items-center max-w-[1200px] mx-auto px-4 md:px-8 xl:px-12 w-full mt-32 md:mt-48 pb-32">
-                    {/* Experience Title */}
-                    <div className="flex flex-col items-center text-center max-w-3xl mb-24">
-                        <span className="text-[#0ea5e9] dark:text-[#38bdf8] text-xs font-bold tracking-[0.2em] uppercase mb-4">My Journey</span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-8">Experience</h2>
-                    </div>
+                {experiences && experiences.length > 0 && (
+                    <section className="flex flex-col items-center max-w-[1200px] mx-auto px-4 md:px-8 xl:px-12 w-full mt-32 md:mt-48 pb-32">
+                        {/* Experience Title */}
+                        <div className="flex flex-col items-center text-center max-w-3xl mb-24">
+                            <span className="text-[#0ea5e9] dark:text-[#38bdf8] text-xs font-bold tracking-[0.2em] uppercase mb-4">My Journey</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-8">Experience</h2>
+                        </div>
 
-                    <div className="relative w-full max-w-5xl mx-auto">
-                        {/* Vertical line faintly visible on desktop */}
-                        <div className="absolute left-2.5 top-8 bottom-8 w-1 bg-gradient-to-b from-primary/5 via-primary/20 to-primary/5 hidden md:block z-0 rounded-full blur-[1px]"></div>
-                        <div className="absolute left-3 top-0 bottom-0 w-px bg-border hidden md:block z-0"></div>
+                        <div className="relative w-full max-w-5xl mx-auto">
+                            {/* Vertical line faintly visible on desktop */}
+                            <div className="absolute left-2.5 top-8 bottom-8 w-1 bg-gradient-to-b from-primary/5 via-primary/20 to-primary/5 hidden md:block z-0 rounded-full blur-[1px]"></div>
+                            <div className="absolute left-3 top-0 bottom-0 w-px bg-border hidden md:block z-0"></div>
 
-                        <ExperienceTimeline experiences={experiences} />
-                    </div>
-                </section>
+                            <ExperienceTimeline experiences={experiences} />
+                        </div>
+                    </section>
+                )}
+
+                {/* Education Section */}
+                {education && education.length > 0 && (
+                    <section className="flex flex-col items-center max-w-[1200px] mx-auto px-4 md:px-8 xl:px-12 w-full mt-16 md:mt-32 pb-32">
+                        <div className="flex flex-col items-center text-center max-w-3xl mb-24">
+                            <span className="text-[#0ea5e9] dark:text-[#38bdf8] text-xs font-bold tracking-[0.2em] uppercase mb-4">Academic Background</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-8">Education</h2>
+                        </div>
+
+                        <div className="relative w-full max-w-5xl mx-auto">
+                            <div className="absolute left-2.5 top-8 bottom-8 w-1 bg-gradient-to-b from-primary/5 via-primary/20 to-primary/5 hidden md:block z-0 rounded-full blur-[1px]"></div>
+                            <div className="absolute left-3 top-0 bottom-0 w-px bg-border hidden md:block z-0"></div>
+
+                            <EducationTimeline education={education} />
+                        </div>
+                    </section>
+                )}
+
+                {/* Courses Section */}
+                {courses && courses.length > 0 && (
+                    <section className="flex flex-col items-center max-w-[1200px] mx-auto px-4 md:px-8 xl:px-12 w-full mt-16 md:mt-32 pb-32">
+                        <div className="flex flex-col items-center text-center max-w-3xl mb-24">
+                            <span className="text-[#0ea5e9] dark:text-[#38bdf8] text-xs font-bold tracking-[0.2em] uppercase mb-4">Continuous Learning</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-8">Courses & Certifications</h2>
+                        </div>
+
+                        <div className="relative w-full max-w-5xl mx-auto">
+                            <div className="absolute left-2.5 top-8 bottom-8 w-1 bg-gradient-to-b from-primary/5 via-primary/20 to-primary/5 hidden md:block z-0 rounded-full blur-[1px]"></div>
+                            <div className="absolute left-3 top-0 bottom-0 w-px bg-border hidden md:block z-0"></div>
+
+                            <CoursesTimeline courses={courses} />
+                        </div>
+                    </section>
+                )}
             </Suspense>
         </main>
     )

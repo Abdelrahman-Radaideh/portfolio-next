@@ -1,7 +1,7 @@
 "use server";
 import {
     getProjects, getProjectById, getActiveProjects, addProject,
-    updateProject, deleteProject, updateProjectImages, reorderProjects
+    updateProject, deleteProject, updateProjectImages, reorderProjects, bulkUpdateProjectOrders
 } from "@/lib/services/project-service";
 import { Project, ProjectSchema, RequestProject, RequestProjectSchema } from "@/lib/models/project";
 import { uploadImage, deleteImage } from "@/lib/utils/server/could-upload";
@@ -296,5 +296,25 @@ export async function checkLiveUrlAction(url: string): Promise<boolean> {
         return false;
     } catch (e) {
         return false;
+    }
+}
+
+export async function bulkUpdateProjectOrdersAction(updates: { id: number; sort_order: number }[]) {
+    const cookieStore = await cookies();
+    const token = cookieStore.get('auth_code')?.value;
+    if (!token) {
+        return { success: false, message: "Unauthorized", status: 401 };
+    }
+    const auth = await checkAuth(token);
+    if (!auth) {
+        return { success: false, message: "Unauthorized", status: 401 };
+    }
+    try {
+        await bulkUpdateProjectOrders(updates);
+        revalidatePath("/");
+        return { success: true };
+    } catch (error) {
+        console.error("Error bulk updating project orders:", error);
+        throw error;
     }
 }

@@ -1,17 +1,21 @@
 import Link from 'next/link';
 import {
-    FaChartLine, FaUsers, FaBriefcase, FaCode, FaProjectDiagram
+    FaChartLine, FaUsers, FaBriefcase, FaCode, FaProjectDiagram, FaGraduationCap, FaCertificate
 } from 'react-icons/fa';
 import { DashboardAnalysis } from '@/components/dashboard/dashboard-analysis';
 import { DashboardPortfolios } from '@/components/dashboard/dashboard-portfolios';
 import { DashboardPortfolioForm } from '@/components/forms/user-form';
 import { DashboardExperience } from '@/components/dashboard/dashboard-experience';
 import { DashboardExperienceForm } from '@/components/forms/experience-form';
+import { DashboardEducation } from '@/components/dashboard/dashboard-education';
+import { DashboardEducationForm } from '@/components/forms/education-form';
+import { DashboardCourses } from '@/components/dashboard/dashboard-courses';
+import { DashboardCourseForm } from '@/components/forms/course-form';
 import { DashboardSkills } from '@/components/dashboard/dashboard-skills';
 import { DashboardProjects } from '@/components/dashboard/dashboard-projects';
 import { DashboardProjectForm } from '@/components/forms/project-form';
 import { Suspense } from 'react';
-export type TabKey = 'analysis' | 'portfolios' | 'experience' | 'projects' | 'skills';
+export type TabKey = 'analysis' | 'portfolios' | 'experience' | 'education' | 'courses' | 'projects' | 'skills';
 
 interface DashboardPageProps {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -27,6 +31,8 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         { id: 'analysis', label: 'Analysis', icon: FaChartLine, color: '#0ea5e9' },
         { id: 'portfolios', label: 'Portfolios', icon: FaUsers, color: '#f59e0b' },
         { id: 'experience', label: 'Experience', icon: FaBriefcase, color: '#ec4899' },
+        { id: 'education', label: 'Education', icon: FaGraduationCap, color: '#10b981' },
+        { id: 'courses', label: 'Courses', icon: FaCertificate, color: '#f43f5e' },
         { id: 'projects', label: 'Projects', icon: FaProjectDiagram, color: '#a855f7' },
         { id: 'skills', label: 'Skills', icon: FaCode, color: '#3b82f6' },
     ];
@@ -82,6 +88,12 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
                 )}
                 {activeTab === 'experience' && (
                     (action === 'new' || action === 'edit') ? <DashboardExperienceForm experienceId={id ? Number(id) : undefined} /> : <DashboardExperience />
+                )}
+                {activeTab === 'education' && (
+                    (action === 'new' || action === 'edit') ? <DashboardEducationForm educationId={id ? Number(id) : undefined} /> : <DashboardEducation />
+                )}
+                {activeTab === 'courses' && (
+                    (action === 'new' || action === 'edit') ? <DashboardCourseForm courseId={id ? Number(id) : undefined} /> : <DashboardCourses />
                 )}
                 {activeTab === 'projects' && (
                     (action === 'new' || action === 'edit') ? <DashboardProjectForm projectId={id ? Number(id) : undefined} /> : <DashboardProjects />

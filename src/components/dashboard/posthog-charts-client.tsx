@@ -62,7 +62,7 @@ export function PostHogChartsClient({
                             No country data available.
                         </div>
                     ) : (
-                        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                        <ResponsiveContainer width="100%" height={256}>
                             <BarChart
                                 data={countryData}
                                 layout="vertical"
@@ -108,7 +108,7 @@ export function PostHogChartsClient({
                             No engagement events yet.
                         </div>
                     ) : (
-                        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                        <ResponsiveContainer width="100%" height={256}>
                             <PieChart>
                                 <Pie
                                     data={pieData}

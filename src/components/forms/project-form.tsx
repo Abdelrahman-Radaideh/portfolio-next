@@ -256,6 +256,7 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
                                 <div>
                                     <label className="block text-xs font-bold text-muted mb-2 uppercase tracking-wider">Github Link</label>
                                     <input
+                                        type="url"
                                         {...register('github_url')}
                                         placeholder="https://github.com/username/project"
                                         className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
@@ -268,6 +269,7 @@ export function DashboardProjectForm({ projectId }: { projectId?: number }) {
                                 <div>
                                     <label className="block text-xs font-bold text-muted mb-2 uppercase tracking-wider">Live URL</label>
                                     <input
+                                        type="url"
                                         {...register('live_url')}
                                         placeholder="https://my-live-project.com"
                                         className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"

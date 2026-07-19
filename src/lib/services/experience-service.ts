@@ -114,3 +114,20 @@ export const getExperiencesCount = async () => {
         return 0;
     }
 }
+
+export const getExperiencesByUserId = async (userId: number) => {
+    "use cache";
+    cacheTag("experiences");
+    cacheLife("hours");
+    try {
+        const { data, error } = await sql.from("experiences").select("*").eq("user_id", userId);
+        if (error) {
+            throw error;
+        }
+        return data;
+    }
+    catch (error) {
+        console.error("Error fetching experiences by user id:", error);
+        return [];
+    }
+}

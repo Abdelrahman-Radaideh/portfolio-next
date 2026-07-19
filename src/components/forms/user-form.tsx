@@ -196,6 +196,7 @@ export function DashboardPortfolioForm({ userId }: { userId?: number }) {
                                     <div>
                                         <label className="block text-xs font-bold text-muted mb-2 uppercase tracking-wider">LinkedIn URL</label>
                                         <input
+                                            type="url"
                                             {...register('linkedin_url')}
                                             placeholder="https://linkedin.com/..."
                                             className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
@@ -205,6 +206,7 @@ export function DashboardPortfolioForm({ userId }: { userId?: number }) {
                                     <div>
                                         <label className="block text-xs font-bold text-muted mb-2 uppercase tracking-wider">GitHub URL</label>
                                         <input
+                                            type="url"
                                             {...register('github_url')}
                                             placeholder="https://github.com/..."
                                             className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
@@ -218,6 +220,7 @@ export function DashboardPortfolioForm({ userId }: { userId?: number }) {
                                     <div>
                                         <label className="block text-xs font-bold text-muted mb-2 uppercase tracking-wider">Resume URL</label>
                                         <input
+                                            type="url"
                                             {...register('resume_url')}
                                             placeholder="CV Link"
                                             className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"

@@ -7,11 +7,13 @@ import { Loading } from "@/components/loading";
 import Link from 'next/link';
 import { toast, Toaster } from "sonner";
 import { ConfirmModal } from "@/components/ui/confirm-modal";
+import { ImportModal } from "@/components/dashboard/import-modal";
 
 export function DashboardExperience() {
     const [experiences, setExperiences] = useState<Experience[]>([]);
     const [expToDelete, setExpToDelete] = useState<number | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isImportOpen, setIsImportOpen] = useState(false);
 
     const fetchExperiences = () => {
 
@@ -57,12 +59,20 @@ export function DashboardExperience() {
                             <h2 className="text-3xl font-bold text-foreground mb-1">Experience</h2>
                             <p className="text-muted">Manage your work history</p>
                         </div>
-                        <Link
-                            href="?tab=experience&action=new"
-                            className="bg-primary hover:bg-primary-hover text-inverse font-bold py-2 px-6 rounded-full transition-colors shadow-lg inline-block"
-                        >
-                            Add New
-                        </Link>
+                        <div className="flex gap-2">
+                            <button
+                                onClick={() => setIsImportOpen(true)}
+                                className="bg-surface hover:bg-border text-foreground border border-border font-bold py-2 px-6 rounded-full transition-colors shadow-sm inline-block"
+                            >
+                                Import
+                            </button>
+                            <Link
+                                href="?tab=experience&action=new"
+                                className="bg-primary hover:bg-primary-hover text-inverse font-bold py-2 px-6 rounded-full transition-colors shadow-lg inline-block"
+                            >
+                                Add New
+                            </Link>
+                        </div>
                     </div>
                     <Suspense fallback={<Loading />}>
                         <div className="flex flex-col gap-4 mt-8">
@@ -111,6 +121,12 @@ export function DashboardExperience() {
                     />
 
                     <Toaster richColors position="bottom-center" duration={2000} />
+
+                    <ImportModal
+                        isOpen={isImportOpen}
+                        onClose={() => { setIsImportOpen(false); fetchExperiences(); }}
+                        entityType="experience"
+                    />
                 </div>
             }
 
