@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { addEducationAction, updateEducationAction, getEducationByIdAction } from '@/actions/education-action';
 import { getActiveUserAction } from '@/actions/user-action';
 import { Education, EducationSchema } from "@/lib/models/education";
+import { z } from "zod";
 import { toast, Toaster } from 'sonner';
 import { Loading } from '@/components/loading';
 import Link from 'next/link';
@@ -25,7 +26,7 @@ export function DashboardEducationForm({ educationId }: { educationId?: number }
         formState: { errors },
         reset,
         watch
-    } = useForm<Education>({
+    } = useForm<z.input<typeof EducationSchema>>({
         resolver: zodResolver(EducationSchema),
     });
 
@@ -69,7 +70,8 @@ export function DashboardEducationForm({ educationId }: { educationId?: number }
         }
     }, [educationId, reset, isEditMode]);
 
-    const onSubmit = async (data: Education) => {
+    const onSubmit = async (formData: z.input<typeof EducationSchema>) => {
+        const data = formData as Education;
         setIsSubmitting(true);
         setError(null);
 
