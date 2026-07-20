@@ -18,7 +18,7 @@ function doGet(e) {
   // to me (Owner)
   MailApp.sendEmail(
     {
-      to: "Abdelrahman Khalid Radaidehradaideh.dev@gmail.com",
+      to: "abdelrahmanradaideh.dev@gmail.com",
       subject: "Contact Form portfolio",
       htmlBody: emailBodyToOwner(data.subject, data.name, data.email, data.message)
     }
