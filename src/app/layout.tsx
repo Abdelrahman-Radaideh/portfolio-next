@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zaid Alradaideh",
-  description: "Zaid Alradaideh - Portfolio",
+  title: "Abdelrahman Khalid Radaideh",
+  description: "Abdelrahman Khalid Radaideh - Portfolio",
 };
 
 export default function RootLayout({

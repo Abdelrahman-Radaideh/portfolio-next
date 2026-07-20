@@ -29,7 +29,7 @@ export function DashboardPortfolioForm({ userId }: { userId?: number }) {
     } = useForm<RequestUser>({
         resolver: zodResolver(requestUserSchema),
     });
-    
+
     const heroDesc = watch('hero_description') || '';
     const aboutTitle = watch('about_title') || '';
     const aboutDesc = watch('about_description') || '';
@@ -162,7 +162,7 @@ export function DashboardPortfolioForm({ userId }: { userId?: number }) {
                                         <label className="block text-xs font-bold text-muted mb-2 uppercase tracking-wider">Full Name</label>
                                         <input
                                             {...register('name')}
-                                            placeholder="e.g. Zaid Radaideh"
+                                            placeholder="e.g. Abdelrahman Khalid Radaideh"
                                             className="w-full bg-elevated border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                                         />
                                         {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>}

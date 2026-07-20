@@ -7,8 +7,8 @@ import { checkAuth } from "@/lib/auth";
 import { Suspense } from "react";
 import { getActivePortfolioNameAction } from "@/actions/user-action";
 export const metadata: Metadata = {
-  title: "Zaid Alradaideh",
-  description: "Zaid Alradaideh - Portfolio",
+  title: "Abdelrahman Khalid Radaideh",
+  description: "Abdelrahman Khalid Radaideh - Portfolio",
 };
 
 async function athCheck() {
@@ -32,8 +32,8 @@ async function AuthHeader() {
   const isAuthenticated = await athCheck();
   let portfolioName = undefined;
   if (isAuthenticated) {
-      const portfolio = await getActivePortfolioNameAction();
-      portfolioName = portfolio?.portfolio_name;
+    const portfolio = await getActivePortfolioNameAction();
+    portfolioName = portfolio?.portfolio_name;
   }
   return <Header isAuthenticated={isAuthenticated} activePortfolio={portfolioName} />;
 }
@@ -56,7 +56,7 @@ export default async function MainLayout({
       <Footer isAuthenticated={isAuthenticated} />
       <div className="text-center py-4">
         <hr className="border-gray-500 w-1/2 mx-auto" />
-        <p className="text-sm text-gray-500 mt-5">© Zaid Radaideh. All rights reserved.</p>
+        <p className="text-sm text-gray-500 mt-5">© Abdelrahman Khalid Radaideh. All rights reserved.</p>
       </div>
     </>
   );

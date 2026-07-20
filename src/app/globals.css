@@ -24,10 +24,12 @@ html {
   --border: #e2e8f0;       /* slate-200 */
   --border-hover: #cbd5e1; /* slate-300 */
   
-  /* ---- Colors: Primary Brand ---- */
-  --primary: #0ea5e9;      /* sky-500 */
-  --primary-hover: #0284c7;/* sky-600 */
-  --primary-glow: rgba(14, 165, 233, 0.15);
+  /* ---- Colors: Primary Brand (Purple) ---- */
+  --primary: #7c3aed;        /* violet-600 */
+  --primary-hover: #6d28d9;  /* violet-700 */
+  --primary-glow: rgba(124, 58, 237, 0.15);
+  --accent: #06b6d4;         /* cyan-500 */
+  --accent-glow: rgba(6, 182, 212, 0.15);
   
   /* ---- Layout & Sidebar (Dashboard) ---- */
   --sidebar-bg: #ffffff;
@@ -40,14 +42,14 @@ html {
   --link-hover: var(--primary);
   --link-active: var(--primary-hover);
   --logo-text: var(--text);
-  --heading-grad-start: #0f172a;
-  --heading-grad-end: #0ea5e9;
+  --heading-grad-start: #7c3aed;
+  --heading-grad-end: #06b6d4;
 
   /* ---- Hero Component Variables ---- */
   --hero-accent: var(--primary);
   --hero-accent-glow: var(--primary-glow);
-  --hero-badge-bg: rgba(14, 165, 233, 0.1);
-  --hero-badge-border: rgba(14, 165, 233, 0.2);
+  --hero-badge-bg: rgba(124, 58, 237, 0.1);
+  --hero-badge-border: rgba(124, 58, 237, 0.2);
   --hero-bio-color: var(--text-muted);
   --hero-btn-secondary-border: var(--border-hover);
   --hero-btn-secondary-text: var(--text);
@@ -83,27 +85,29 @@ html {
 
 .dark {
   /* ---- Colors: Base & Surface ---- */
-  --bg: #0b1120;           /* Deep dark blue (existing) */
-  --bg-surface: #1e293b;   /* slate-800 for cards */
-  --bg-elevated: #334155;  /* slate-700 for hovers/modals */
+  --bg: #080d1a;           /* Deep navy (matching reference image) */
+  --bg-surface: #0f1628;   /* Slightly lighter navy for cards */
+  --bg-elevated: #1a2340;  /* Navy-slate for hovers/modals */
   
   /* ---- Colors: Text & Typography ---- */
-  --text: #f8fafc;         /* slate-50 */
-  --text-muted: #94a3b8;   /* slate-400 */
-  --text-inverse: #0f172a; /* slate-900 */
+  --text: #f0f4ff;         /* Near-white with blue tint */
+  --text-muted: #7b8bb5;   /* Muted blue-grey */
+  --text-inverse: #080d1a;
   
   /* ---- Colors: Borders & Dividers ---- */
-  --border: #1e293b;       /* slate-800 */
-  --border-hover: #334155; /* slate-700 */
+  --border: #1a2340;       /* Dark navy border */
+  --border-hover: #2a3660; /* Slightly lighter on hover */
   
-  /* ---- Colors: Primary Brand ---- */
-  --primary: #38bdf8;      /* sky-400 */
-  --primary-hover: #7dd3fc;/* sky-300 */
-  --primary-glow: rgba(56, 189, 248, 0.2);
+  /* ---- Colors: Primary Brand (Purple) ---- */
+  --primary: #a78bfa;        /* violet-400 */
+  --primary-hover: #c4b5fd;  /* violet-300 */
+  --primary-glow: rgba(167, 139, 250, 0.25);
+  --accent: #22d3ee;         /* cyan-400 */
+  --accent-glow: rgba(34, 211, 238, 0.2);
 
   /* ---- Layout & Sidebar (Dashboard) ---- */
-  --sidebar-bg: rgba(11, 17, 32, 0.5); /* semi-transparent to match existing feel */
-  --sidebar-hover: rgba(255, 255, 255, 0.05);
+  --sidebar-bg: rgba(8, 13, 26, 0.6);
+  --sidebar-hover: rgba(255, 255, 255, 0.04);
   --sidebar-border: var(--border);
 
   /* ---- Header & Legacy Variables ---- */
@@ -112,21 +116,21 @@ html {
   --link-hover: var(--primary);
   --link-active: var(--primary);
   --logo-text: var(--text);
-  --heading-grad-start: #ffffff;
-  --heading-grad-end: var(--primary);
+  --heading-grad-start: #a78bfa;
+  --heading-grad-end: #22d3ee;
 
   /* ---- Hero Component Variables ---- */
   --hero-accent: var(--primary);
   --hero-accent-glow: var(--primary-glow);
-  --hero-badge-bg: rgba(56, 189, 248, 0.08);
-  --hero-badge-border: rgba(56, 189, 248, 0.25);
+  --hero-badge-bg: rgba(167, 139, 250, 0.08);
+  --hero-badge-border: rgba(167, 139, 250, 0.25);
   --hero-bio-color: var(--text-muted);
-  --hero-btn-secondary-border: rgba(248, 250, 252, 0.25);
+  --hero-btn-secondary-border: rgba(240, 244, 255, 0.2);
   --hero-btn-secondary-text: var(--text);
-  --hero-card-bg: rgba(255, 255, 255, 0.04);
-  --hero-card-border: rgba(56, 189, 248, 0.2);
+  --hero-card-bg: rgba(255, 255, 255, 0.03);
+  --hero-card-border: rgba(167, 139, 250, 0.2);
   --hero-corner-color: var(--primary);
-  --hero-label-bg: rgba(11, 17, 32, 0.8);
+  --hero-label-bg: rgba(8, 13, 26, 0.85);
   --hero-label-text: var(--text);
 
   /* Shadows for Dark Mode */
@@ -160,7 +164,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Customizing the arrows/dots to match your theme */
 :root {
-  --swiper-theme-color: #38bdf8; /* Uses your header's blue */
+  --swiper-theme-color: #a78bfa; /* violet-400 — matches new purple theme */
   --swiper-navigation-size: 16px;
 }
 
@@ -200,7 +204,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .swiper-pagination-bullet-active {
-  background: #38bdf8 !important;
+  background: #a78bfa !important;
   opacity: 1 !important;
   width: 24px !important;
   border-radius: 999px !important;

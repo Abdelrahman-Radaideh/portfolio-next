@@ -34,7 +34,7 @@ export default function HeroSection({ user, skills }: { user: User, skills: Skil
                 <motion.div
                     animate={{ x: ['-100%', '200%'] }}
                     transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-                    className="w-[40%] h-full bg-gradient-to-r from-transparent via-[#0ea5e9] dark:via-[#38bdf8] to-transparent"
+                    className="w-[40%] h-full bg-gradient-to-r from-transparent via-[#7c3aed] dark:via-[#a78bfa] to-transparent"
                 />
             </div>
 
@@ -56,7 +56,7 @@ export default function HeroSection({ user, skills }: { user: User, skills: Skil
                 <motion.div
                     animate={{ x: ['200%', '-100%'] }}
                     transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-                    className="w-[40%] h-full bg-gradient-to-r from-transparent via-[#0ea5e9] dark:via-[#38bdf8] to-transparent"
+                    className="w-[40%] h-full bg-gradient-to-r from-transparent via-[#7c3aed] dark:via-[#a78bfa] to-transparent"
                 />
             </div>
 
@@ -64,7 +64,7 @@ export default function HeroSection({ user, skills }: { user: User, skills: Skil
             <motion.div
                 animate={{ y: [0, 8, 0] }}
                 transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                className="absolute -bottom-16 text-[#38bdf8]/50 flex justify-center"
+                className="absolute -bottom-16 text-[#a78bfa]/50 flex justify-center"
             >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -85,16 +85,16 @@ export default function HeroSection({ user, skills }: { user: User, skills: Skil
                     className="flex-1 flex flex-col items-center text-center lg:items-start lg:text-left z-10"
                 >
                     <motion.div variants={fadeIn} className="mb-6">
-                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0ea5e9]/10 dark:bg-[#38bdf8]/10 border border-[#0ea5e9]/20 dark:border-[#38bdf8]/20 text-[#0ea5e9] dark:text-[#38bdf8] text-sm font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(14,165,233,0.05)] dark:shadow-[0_0_20px_rgba(56,189,248,0.05)]">
-                            <span className="w-2 h-2 rounded-full bg-[#0ea5e9] dark:bg-[#38bdf8] animate-pulse" />
+                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#7c3aed]/10 dark:bg-[#a78bfa]/10 border border-[#7c3aed]/20 dark:border-[#a78bfa]/25 text-[#7c3aed] dark:text-[#a78bfa] text-sm font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(124,58,237,0.08)] dark:shadow-[0_0_20px_rgba(167,139,250,0.08)]">
+                            <span className="w-2 h-2 rounded-full bg-[#7c3aed] dark:bg-[#a78bfa] animate-pulse" />
                             {user.job_title}
                         </span>
                     </motion.div>
 
                     <motion.div variants={fadeIn} className="mb-6 space-y-2">
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-foreground tracking-tight leading-[1.1]">
-                            Hi, I'm <br className="hidden lg:block" />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground to-primary drop-shadow-sm">
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1]">
+                            <span className="text-foreground">Hi, I'm </span><br className="hidden lg:block" />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7c3aed] dark:from-[#a78bfa] to-[#06b6d4] dark:to-[#22d3ee] drop-shadow-sm">
                                 {user.name}
                             </span>
                         </h1>
@@ -105,7 +105,7 @@ export default function HeroSection({ user, skills }: { user: User, skills: Skil
                     </motion.p>
 
                     <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-                        <Link href={user.resume_url} onClick={() => posthog.capture("resume_downloaded", { resume_url: user.resume_url })} className="w-full sm:w-auto px-8 py-4 bg-primary hover:bg-primary-hover text-inverse font-bold rounded-full transition-all duration-normal ease-smooth transform hover:-translate-y-1 hover:shadow-[0_8px_30px_var(--primary-glow)] text-center flex items-center justify-center gap-2">
+                        <Link href={user.resume_url} onClick={() => posthog.capture("resume_downloaded", { resume_url: user.resume_url })} className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#7c3aed] to-[#06b6d4] dark:from-[#a78bfa] dark:to-[#22d3ee] hover:opacity-90 text-white font-bold rounded-full transition-all duration-normal ease-smooth transform hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(124,58,237,0.4)] dark:hover:shadow-[0_8px_30px_rgba(167,139,250,0.35)] text-center flex items-center justify-center gap-2">
                             Download CV
                         </Link>
                         <Link href={'/#contact'} className="w-full sm:w-auto px-8 py-4 bg-transparent border border-border hover:border-primary text-foreground hover:text-primary font-bold rounded-full transition-all duration-normal ease-smooth transform hover:-translate-y-1 text-center">

@@ -8,7 +8,7 @@
 
 A highly customizable, fully responsive portfolio website built with Next.js and TypeScript. It includes a beautiful frontend powered by Framer Motion animations and a secure, fully-featured Admin Dashboard to manage your content dynamically without writing a single line of code.
 
-**Demo:** [View Live Site](https://zaid-alradaideh.vercel.app)
+**Demo:** [View Live Site](https://Abdelrahman Khalid Radaideh-alradaideh.vercel.app)
 
 ---
 
@@ -74,7 +74,7 @@ To prevent the application from crashing when you first launch it, we provide a 
 2. Navigate to the **SQL Editor** in your Supabase dashboard.
 3. Open the `src/config/setup-database.sql` file located in this repository.
 4. Copy its contents (which includes the table schema and the initial placeholder data), paste them into the SQL Editor, and click **Run**.
-5. *Success! Your database now has the correct tables and is populated with placeholder data (Zaid''s Profile, Projects, Skills, etc).*
+5. *Success! Your database now has the correct tables and is populated with placeholder data (Abdelrahman Khalid Radaideh''s Profile, Projects, Skills, etc).*
 
 ### 5. Start the Application
 ```bash
@@ -89,7 +89,7 @@ Open your browser and navigate to `http://localhost:3000`. You should now see th
 The Admin Dashboard is hidden to protect your data. To log in and edit the placeholder data with your actual information:
 
 1. Scroll down to the **Contact** section at the bottom of the homepage.
-2. In the "Message" text area, type your secret access code (defined as `NEXT_PUBLIC_SECRET_KEY` in your `.env.local`). Default is: `zaidopendash`
+2. In the "Message" text area, type your secret access code (defined as `NEXT_PUBLIC_SECRET_KEY` in your `.env.local`). Default is: `Abdelrahman Khalid Radaidehopendash`
 3. The system will detect the phrase and trigger a secure modal. 
 4. A One-Time Password (OTP) will be securely sent to the email address you configured.
 5. Enter the OTP code from your email into the modal to authenticate.
@@ -119,7 +119,7 @@ Contributions are welcome! Please fork the repository and open a pull request fo
 
 ## 📞 Contact
 For questions or collaboration opportunities, feel free to reach out to the original author:
-- Email: zaidradaideh.dev@gmail.com
-- LinkedIn: [linkedin.com/in/zaid-radaideh](https://linkedin.com/in/zaid-radaideh)
+- Email: Abdelrahman Khalid Radaidehradaideh.dev@gmail.com
+- LinkedIn: [linkedin.com/in/Abdelrahman Khalid Radaideh-radaideh](https://linkedin.com/in/Abdelrahman Khalid Radaideh-radaideh)
 
 ⭐ **If you found this template helpful, please give it a star!**

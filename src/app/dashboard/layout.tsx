@@ -8,8 +8,8 @@ import { getActivePortfolioNameAction } from "@/actions/user-action";
 
 
 export const metadata: Metadata = {
-    title: "Zaid Alradaideh dashboard",
-    description: "Zaid Alradaideh - dashboard Portfolio ",
+    title: "Abdelrahman Khalid Radaideh dashboard",
+    description: "Abdelrahman Khalid Radaideh - dashboard Portfolio ",
 };
 
 async function AuthHeader() {
@@ -47,7 +47,7 @@ export default function DashboardLayout({
             </main>
             <div className="text-center py-10">
                 <hr className="border-border w-1/2 mx-auto" />
-                <p className="text-sm text-muted mt-5">© Zaid Radaideh. All rights reserved.</p>
+                <p className="text-sm text-muted mt-5">© Abdelrahman Khalid Radaideh. All rights reserved.</p>
             </div>
         </>
     );

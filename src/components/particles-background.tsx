@@ -51,10 +51,10 @@ export default function ParticlesBackground() {
       },
       particles: {
         color: {
-          value: "#38bdf8", // Using the light blue from the button
+          value: "#a78bfa", // violet-400 — matches new purple theme
         },
         links: {
-          color: "#38bdf8",
+          color: "#a78bfa",
           distance: 150,
           enable: true,
           opacity: 0.2, // Subtle links

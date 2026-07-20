@@ -241,17 +241,17 @@ INSERT INTO public.users (
   portfolio_name, 
   is_active
 ) VALUES (
-  'Zaid Radaideh', 
-  'Software Engineer', 
-  'zaidradaideh.dev@gmail.com', 
+  'Abdelrahman Khalid Radaideh', 
+  'AI Developer', 
+  'abdelrahmanradaideh.dev@gmail.com', 
   'Building beautiful, robust, and scalable web applications.', 
   'I am a passionate software engineer dedicated to crafting seamless digital experiences and solving complex problems.', 
   'My core capabilities include full-stack web development, system design, and ensuring high-quality software delivery.', 
   'About Me', 
-  'https://linkedin.com/in/zaid-radaideh', 
-  'https://github.com/zaid-radaideh', 
-  'https://zaid-alradaideh.vercel.app/resume.pdf', 
-  'Zaid''s Portfolio', 
+  'https://linkedin.com/in/Abdelrahman Khalid Radaideh-radaideh', 
+  'https://github.com/Abdelrahman Khalid Radaideh-radaideh', 
+  'https://Abdelrahman Khalid Radaideh-alradaideh.vercel.app/resume.pdf', 
+  'Abdelrahman''s Portfolio', 
   true
 );
 
@@ -260,7 +260,7 @@ DO $$
 DECLARE
   v_user_id int;
 BEGIN
-  SELECT id INTO v_user_id FROM public.users WHERE email = 'zaidradaideh.dev@gmail.com' LIMIT 1;
+  SELECT id INTO v_user_id FROM public.users WHERE email = 'Abdelrahman Khalid Radaidehradaideh.dev@gmail.com' LIMIT 1;
 
   -- Insert Project
   INSERT INTO public.projects (
@@ -275,7 +275,7 @@ BEGIN
     1, 
     'A personal portfolio to showcase my projects, skills, and experiences. Built with modern web technologies.', 
     'Next.js/TS, React/TS, Tailwind CSS, Node.js', 
-    'https://zaid-alradaideh.vercel.app'
+    'https://Abdelrahman Khalid Radaideh-alradaideh.vercel.app'
   );
 
   -- Insert Skill
@@ -321,4 +321,4 @@ BEGIN
     1
   );
 
-END $$;
+END $$;

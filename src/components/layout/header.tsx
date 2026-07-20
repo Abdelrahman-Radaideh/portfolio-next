@@ -100,7 +100,7 @@ export default function Header({ isAuthenticated, activePortfolio }: { isAuthent
                     <div className="z-50 relative flex items-center gap-4">
                         <a href="/" className="flex items-center gap-3 group" onClick={() => setIsMobileMenuOpen(false)}>
                             <span className="text-primary font-bold text-xl md:text-2xl tracking-widest uppercase transition-transform group-hover:scale-105">
-                                Zaid Alradaideh
+                                Abdelrahman Khalid Radaideh
                             </span>
                         </a>
                         {isAuthenticated && activePortfolio && pathname?.startsWith('/dashboard') && (
